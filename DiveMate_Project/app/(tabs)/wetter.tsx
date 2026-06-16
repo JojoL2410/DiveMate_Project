@@ -5,7 +5,7 @@ import { Colors } from '../../constants/theme';
 export default function WetterScreen() {
     return (
         <View style={styles.container}>
-            <Text style={styles.text}> Wetter – kommt in Etappe 3</Text>
+            <Text style={styles.text}> Wetter</Text>
         </View>
     );
 }
