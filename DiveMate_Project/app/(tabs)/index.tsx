@@ -5,7 +5,7 @@ import { Colors } from '@/constants/theme';
 export default function HomeScreen() {
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>🏠 Home – kommt in Etappe 2</Text>
+            <Text style={styles.text}>Home</Text>
         </View>
     );
 }

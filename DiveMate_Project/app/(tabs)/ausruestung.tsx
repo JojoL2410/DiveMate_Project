@@ -1,0 +1,16 @@
+// app/(tabs)/ausruestung.tsx
+import { View, Text, StyleSheet } from 'react-native';
+import { Colors } from '@/constants/theme';
+
+export default function AusruestungScreen() {
+    return (
+        <View style={styles.container}>
+            <Text style={styles.text}>Ausrüstung</Text>
+        </View>
+    );
+}
+
+const styles = StyleSheet.create({
+    container: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: Colors.white },
+    text: { fontSize: 16, color: Colors.grey },
+});
