@@ -40,25 +40,25 @@ export default function WetterScreen() {
                     <Text style={styles.sectionLabel}>Aktuelle Bedingungen</Text>
                     <View style={styles.weatherGrid}>
                         <View style={styles.weatherCard}>
-                            <Text style={styles.weatherCardLabel}>🌡 Lufttemp.</Text>
+                            <Text style={styles.weatherCardLabel}>Lufttemperatur</Text>
                             <Text style={styles.weatherCardValue}>
                                 17<Text style={styles.weatherCardUnit}>°C</Text>
                             </Text>
                         </View>
                         <View style={styles.weatherCard}>
-                            <Text style={styles.weatherCardLabel}>💧 Wassertemp.</Text>
+                            <Text style={styles.weatherCardLabel}>Wassertemperatur</Text>
                             <Text style={styles.weatherCardValue}>
                                 11<Text style={styles.weatherCardUnit}>°C</Text>
                             </Text>
                         </View>
                         <View style={styles.weatherCard}>
-                            <Text style={styles.weatherCardLabel}>💨 Wind</Text>
+                            <Text style={styles.weatherCardLabel}>Wind</Text>
                             <Text style={styles.weatherCardValue}>
                                 12<Text style={styles.weatherCardUnit}>km/h</Text>
                             </Text>
                         </View>
                         <View style={styles.weatherCard}>
-                            <Text style={styles.weatherCardLabel}>🌊 Wellenhöhe</Text>
+                            <Text style={styles.weatherCardLabel}>Wellenhöhe</Text>
                             <Text style={styles.weatherCardValue}>
                                 0.3<Text style={styles.weatherCardUnit}>m</Text>
                             </Text>
