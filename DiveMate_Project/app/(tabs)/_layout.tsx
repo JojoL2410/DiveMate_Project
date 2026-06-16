@@ -44,7 +44,7 @@ export default function TabLayout() {
             <Tabs.Screen
                 name="ausruestung"
                 options={{
-                    title: 'Ausrüstg.',
+                    title: 'Ausrüstung.',
                     tabBarIcon: ({ color, size }) => (
                         <MaterialCommunityIcons name="bag-personal-outline" size={size} color={color} />
                     ),
