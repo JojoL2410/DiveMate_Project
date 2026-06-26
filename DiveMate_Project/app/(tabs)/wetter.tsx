@@ -12,9 +12,9 @@ type DayEntry = {
 };
 
 const dayEntries: DayEntry[] = [
-    { time: '08:00', icon: 'sunny-outline',       condition: 'Sonnig, 17°C',   rating: 'Ideal',        ratingColor: '#185FA5' },
-    { time: '11:00', icon: 'cloud-outline',        condition: 'Bewölkt, 16°C', rating: 'Gut',          ratingColor: '#1D9E75' },
-    { time: '14:00', icon: 'rainy-outline',        condition: 'Regen, 14°C',   rating: 'Mäßig',        ratingColor: '#854F0B' },
+    { time: '08:00', icon: 'sunny-outline',condition: 'Sonnig, 17°C',   rating: 'Ideal',ratingColor: '#185FA5' },
+    { time: '11:00', icon: 'cloud-outline',condition: 'Bewölkt, 16°C', rating: 'Gut',ratingColor: '#1D9E75' },
+    { time: '14:00', icon: 'rainy-outline',condition: 'Regen, 14°C',   rating: 'Mäßig',ratingColor: '#854F0B' },
     { time: '17:00', icon: 'thunderstorm-outline', condition: 'Gewitter, 12°C',rating: 'Nicht tauchen',ratingColor: '#A32D2D' },
 ];
 
