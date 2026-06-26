@@ -104,6 +104,10 @@ backgroundColor: Colors.tealLight,
 pillAmber: {
 backgroundColor: Colors.amberLight,
 },
+// NEU: roter Status (z.B. sehr starker Wind, sehr kaltes Wasser)
+pillRed: {
+backgroundColor: '#FDDEDE',
+},
 pillTextGreen: {
 fontSize: 12,
 fontWeight: '500',
@@ -113,6 +117,12 @@ pillTextAmber: {
 fontSize: 12,
 fontWeight: '500',
 color: '#633806',
+},
+// NEU
+pillTextRed: {
+fontSize: 12,
+fontWeight: '500',
+color: '#7B1515',
 },
 
 // Tagesübersicht
