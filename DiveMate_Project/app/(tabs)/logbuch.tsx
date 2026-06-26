@@ -1,16 +1,83 @@
 // app/(tabs)/logbuch.tsx
-import { View, Text, StyleSheet } from 'react-native';
-import { Colors } from '../../constants/theme';
+import { View, Text, ScrollView, TouchableOpacity, SafeAreaView } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { router } from 'expo-router';
+import { styles } from './styles/logbuchStyles';
+import { useDives } from '../_layout';
 
 export default function LogbuchScreen() {
+    const { dives } = useDives();
+
     return (
-        <View style={styles.container}>
-            <Text style={styles.text}>Logbuch</Text>
-        </View>
+        <SafeAreaView style={styles.safeArea}>
+
+            {/* HEADER */}
+            <View style={styles.header}>
+                <View style={styles.headerTop}>
+                    <Text style={styles.headerTitle}>Logbuch</Text>
+                </View>
+                <Text style={styles.headerSubtitle}>{dives.length} Tauchgänge gesamt</Text>
+            </View>
+
+            <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>
+                <View style={styles.section}>
+                    <Text style={styles.sectionLabel}>Meine Tauchgänge</Text>
+
+                    {/* EINTRÄGE */}
+                    {dives.map((dive) => (
+                        <View key={dive.id} style={styles.logCard}>
+
+                            {/* Kopfzeile */}
+                            <View style={styles.logCardHeader}>
+                                <Text style={styles.logLocation}>{dive.location}</Text>
+                                <Text style={styles.logDate}>{dive.date}</Text>
+                            </View>
+
+                            {/* Stats */}
+                            <View style={styles.logStats}>
+                                <View style={styles.logStat}>
+                                    <Ionicons name="arrow-down-outline" size={14} color="#888" />
+                                    <Text style={styles.logStatText}>{dive.depth} m</Text>
+                                </View>
+                                <View style={styles.logStat}>
+                                    <Ionicons name="time-outline" size={14} color="#888" />
+                                    <Text style={styles.logStatText}>{dive.duration} min</Text>
+                                </View>
+                            </View>
+
+                            {/* Footer: Badge + Sterne */}
+                            <View style={styles.logCardFooter}>
+                                <View style={styles.diveBadge}>
+                                    <Ionicons name="pricetag-outline" size={11} color="#042C53" />
+                                    <Text style={styles.diveBadgeText}>{dive.type}</Text>
+                                </View>
+                                <View style={styles.starsRow}>
+                                    {Array.from({ length: 5 }).map((_, i) => (
+                                        <Ionicons
+                                            key={i}
+                                            name="star"
+                                            size={14}
+                                            color={i < dive.stars ? '#EF9F27' : '#ddd'}
+                                        />
+                                    ))}
+                                </View>
+                            </View>
+
+                        </View>
+                    ))}
+
+                    {/* BUTTON */}
+                    <TouchableOpacity
+                        style={styles.addButton}
+                        onPress={() => router.push('/modal')}
+                        activeOpacity={0.8}
+                    >
+                        <Ionicons name="add" size={18} color="white" />
+                        <Text style={styles.addButtonText}>Tauchgang erfassen</Text>
+                    </TouchableOpacity>
+
+                </View>
+            </ScrollView>
+        </SafeAreaView>
     );
 }
-
-const styles = StyleSheet.create({
-    container: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: Colors.white },
-    text: { fontSize: 16, color: Colors.grey },
-});
