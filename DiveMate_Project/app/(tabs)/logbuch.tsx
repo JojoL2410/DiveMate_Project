@@ -24,8 +24,12 @@ export default function LogbuchScreen() {
 
                     {/* EINTRÄGE */}
                     {dives.map((dive) => (
-                        <View key={dive.id} style={styles.logCard}>
-
+                        <TouchableOpacity
+                            key={dive.id}
+                            style={styles.logCard}
+                            onPress={() => router.push({ pathname: '/details/diveDetails', params: { id: dive.id } })}
+                            activeOpacity={0.7}
+                        >
                             {/* Kopfzeile */}
                             <View style={styles.logCardHeader}>
                                 <Text style={styles.logLocation}>{dive.location}</Text>
@@ -62,7 +66,7 @@ export default function LogbuchScreen() {
                                 </View>
                             </View>
 
-                        </View>
+                        </TouchableOpacity>
                     ))}
 
                     {/* BUTTON */}

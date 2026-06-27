@@ -87,6 +87,10 @@ export default function RootLayout() {
                     name="modal"
                     options={{ presentation: 'modal', title: 'Tauchgang erfassen' }}
                 />
+                <Stack.Screen
+                    name="details/diveDetails"
+                    options={{ headerShown: false }}
+                />
             </Stack>
         </DiveProvider>
     );
