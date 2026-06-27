@@ -3,6 +3,7 @@ import { View, Text, ScrollView, TouchableOpacity, SafeAreaView } from 'react-na
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
 import { styles } from './styles/ausruestungStyles';
+import ScreenHeader from '../../components/ui/ScreenHeader';
 
 type EquipItem = {
     id: string;
@@ -40,12 +41,11 @@ export default function AusruestungScreen() {
         <SafeAreaView style={styles.safeArea}>
 
             {/* HEADER */}
-            <View style={styles.header}>
-                <View style={styles.headerTop}>
-                    <Text style={styles.headerTitle}>Ausrüstung</Text>
-                </View>
-                <Text style={styles.headerSubtitle}>Checkliste vor dem Tauchgang</Text>
-            </View>
+            <ScreenHeader
+                title="Ausrüstung"
+                subtitle="Checkliste vor dem Tauchgang"
+                icon="bag-outline"
+            />
 
             <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>
                 <View style={styles.section}>

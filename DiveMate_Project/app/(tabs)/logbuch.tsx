@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { styles } from './styles/logbuchStyles';
 import { useDives } from '../_layout';
+import ScreenHeader from '../../components/ui/ScreenHeader';
 
 export default function LogbuchScreen() {
     const { dives } = useDives();
@@ -12,13 +13,11 @@ export default function LogbuchScreen() {
         <SafeAreaView style={styles.safeArea}>
 
             {/* HEADER */}
-            <View style={styles.header}>
-                <View style={styles.headerTop}>
-                    <Text style={styles.headerTitle}>Logbuch</Text>
-                </View>
-                <Text style={styles.headerSubtitle}>{dives.length} Tauchgänge gesamt</Text>
-            </View>
-
+            <ScreenHeader
+                title="Logbuch"
+                subtitle={`${dives.length} Tauchgänge gesamt`}
+                icon="book-outline"
+            />
             <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>
                 <View style={styles.section}>
                     <Text style={styles.sectionLabel}>Meine Tauchgänge</Text>

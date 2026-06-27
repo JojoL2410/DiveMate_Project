@@ -3,6 +3,7 @@ import { View, Text, ScrollView, TouchableOpacity, SafeAreaView } from 'react-na
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
 import { styles } from './styles/buddyStyles';
+import ScreenHeader from '../../components/ui/ScreenHeader';
 
 type BuddyStep = {
     id: string;
@@ -67,12 +68,11 @@ export default function BuddyScreen() {
         <SafeAreaView style={styles.safeArea}>
 
             {/* HEADER */}
-            <View style={styles.header}>
-                <View style={styles.headerTop}>
-                    <Text style={styles.headerTitle}>Buddy-Check</Text>
-                </View>
-                <Text style={styles.headerSubtitle}>5 Schritte vor dem Abtauchen</Text>
-            </View>
+            <ScreenHeader
+                title="Buddy-Check"
+                subtitle="5 Schritte vor dem Abtauchen"
+                icon="people-outline"
+            />
 
             <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>
                 <View style={styles.section}>
