@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { View, Text, ScrollView, SafeAreaView, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
+import { getNearestLakeIfClose, getCurrentTemp } from '../../constants/lakes';
 import { styles } from './styles/wetterStyles';
 
 // ─── Typen ───────────────────────────────────────────────────────────────────
@@ -163,7 +164,12 @@ export default function WetterScreen() {
             const airTemp   = getValueAtHour(times, airTemps,   currentHour);
             const windSpeed = getValueAtHour(times, winds,       currentHour);
             const waveHeight = getValueAtHour(times, waves,      currentHour);
-            const waterTemp = getValueAtHour(times, waterTemps,  currentHour);
+
+            // Wassertemperatur: See in der Nähe → Seewert, sonst Marine API
+            const nearestLake = getNearestLakeIfClose(latitude, longitude);
+            const waterTemp   = nearestLake
+                ? getCurrentTemp(nearestLake)
+                : getValueAtHour(times, waterTemps, currentHour);
 
             // 6️⃣ Tagesübersicht: 08, 11, 14, 17 Uhr
             const dayEntries: DayEntry[] = [8, 11, 14, 17].map((hour) => {
@@ -180,8 +186,14 @@ export default function WetterScreen() {
                 };
             });
 
-            setWeather({ airTemp, waterTemp, windSpeed, waveHeight, locationName, dayEntries });
-        } catch (e) {
+            setWeather({
+                airTemp,
+                waterTemp,
+                windSpeed,
+                waveHeight,
+                locationName: nearestLake ? nearestLake.name : locationName,
+                dayEntries,
+            });} catch (e) {
             // Netzwerkfehler → Offline-Modus
             setOffline(true);
         } finally {
@@ -316,7 +328,7 @@ export default function WetterScreen() {
                             </Text>
                         </View>
                         <View style={styles.weatherCard}>
-                            <Text style={styles.weatherCardLabel}>Wassertemperatur</Text>
+                            <Text style={styles.weatherCardLabel}>⌀ Wassertemperatur</Text>
                             <Text style={styles.weatherCardValue}>
                                 {weather.waterTemp}<Text style={styles.weatherCardUnit}>°C</Text>
                             </Text>
