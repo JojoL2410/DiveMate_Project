@@ -13,7 +13,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
 import { router } from 'expo-router';
 import { useDives } from './_layout';
-import { styles } from '../styles/modalStyles';
+import { styles } from './(tabs)/styles/modalStyles';
 
 const DIVE_TYPES = ['Freizeittauchen', 'Fotografie', 'Ausbildung', 'Technisch', 'Nachttauchen'];
 
