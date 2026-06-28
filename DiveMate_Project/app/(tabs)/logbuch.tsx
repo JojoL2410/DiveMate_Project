@@ -1,4 +1,3 @@
-// app/(tabs)/logbuch.tsx
 import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';

@@ -1,4 +1,3 @@
-// app/(tabs)/index.tsx
 import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { router } from 'expo-router';
@@ -16,7 +15,7 @@ export default function HomeScreen() {
             <View style={styles.header}>
                 <View style={styles.headerTop}>
                     <Text style={styles.appTitle}>
-                        Dive<Text style={styles.appTitleAccent}>Log</Text>
+                        Dive<Text style={styles.appTitleAccent}>Mate</Text>
                     </Text>
                 </View>
                 <View style={styles.locationLine}>

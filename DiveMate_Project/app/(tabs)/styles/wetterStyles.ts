@@ -4,90 +4,94 @@ import { Colors } from '../../../constants/theme';
 
 export const styles = StyleSheet.create({
 safeArea: {
-flex: 1,
-backgroundColor: Colors.oceanDeep,
+    flex: 1,
+    backgroundColor: Colors.oceanDeep,
+    paddingTop: 60,
 },
 
 // Header
 header: {
-backgroundColor: Colors.oceanDeep,
-paddingHorizontal: 16,
-paddingTop: 12,
-paddingBottom: 18,
+    backgroundColor: Colors.oceanDeep,
+    paddingHorizontal: 16,
+    paddingTop: 12,
+    paddingBottom: 18,
 },
 headerTop: {
-flexDirection: 'row',
-justifyContent: 'space-between',
-alignItems: 'center',
-marginBottom: 8,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 8,
 },
 headerTitle: {
-fontSize: 22,
-fontWeight: '600',
-color: Colors.white,
-letterSpacing: -0.4,
+    fontSize: 22,
+    fontWeight: '600',
+    color: Colors.white,
+    letterSpacing: -0.4,
 },
 locationLine: {
-flexDirection: 'row',
-alignItems: 'center',
-gap: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
 },
 locationLineText: {
-fontSize: 13,
-color: '#B5D4F4',
+    fontSize: 13,
+    color: '#B5D4F4',
 },
+    backButton: {
+        padding: 4,
+    },
 
 // Scroll & Sections
 scroll: {
-flex: 1,
-backgroundColor: Colors.white,
+    flex: 1,
+    backgroundColor: Colors.white,
 },
 section: {
-padding: 14,
-borderBottomWidth: 1,
-borderBottomColor: '#f0f0f0',
+    padding: 14,
+    borderBottomWidth: 1,
+    borderBottomColor: '#f0f0f0',
 },
 sectionLabel: {
-fontSize: 11,
-fontWeight: '600',
-textTransform: 'uppercase',
-letterSpacing: 0.8,
-color: Colors.grey,
-marginBottom: 10,
+    fontSize: 11,
+    fontWeight: '600',
+    textTransform: 'uppercase',
+    letterSpacing: 0.8,
+    color: Colors.grey,
+    marginBottom: 10,
 },
 
 // Wetter-Grid
 weatherGrid: {
-flexDirection: 'row',
-flexWrap: 'wrap',
-gap: 8,
-marginBottom: 4,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
+    marginBottom: 4,
 },
 weatherCard: {
-width: '47%',
-backgroundColor: Colors.oceanLight,
-borderRadius: 10,
-padding: 12,
+    width: '47%',
+    backgroundColor: Colors.oceanLight,
+    borderRadius: 10,
+    padding: 12,
 },
 weatherCardLabel: {
-fontSize: 11,
-color: Colors.oceanMid,
-marginBottom: 2,
+    fontSize: 11,
+    color: Colors.oceanMid,
+    marginBottom: 2,
 },
 weatherCardValue: {
-fontSize: 26,
-fontWeight: '600',
-color: Colors.oceanDeep,
+    fontSize: 26,
+    fontWeight: '600',
+    color: Colors.oceanDeep,
 },
 weatherCardUnit: {
-fontSize: 13,
-color: Colors.oceanMid,
+    fontSize: 13,
+    color: Colors.oceanMid,
 },
 
 // Tauglichkeit Pills
 conditionsRow: {
-flexDirection: 'row',
-flexWrap: 'wrap',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
 gap: 6,
 },
 pill: {

@@ -3,8 +3,9 @@ import { Colors } from '../../../constants/theme';
 
 export const styles = StyleSheet.create({
 safeArea: {
-flex: 1,
-backgroundColor: Colors.oceanDeep,
+    flex: 1,
+    backgroundColor: Colors.oceanDeep,
+    paddingTop: 60,
 },
 
 // Header

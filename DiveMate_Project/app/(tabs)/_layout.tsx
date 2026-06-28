@@ -33,12 +33,18 @@ export default function TabLayout() {
                 }}
             />
             <Tabs.Screen
-                name="wetter"
+                name="tauchplatz"
                 options={{
                     title: 'Wetter',
                     tabBarIcon: ({ color, size }) => (
                         <Ionicons name="cloud-outline" size={size} color={color} />
                     ),
+                }}
+            />
+            <Tabs.Screen
+                name="wetter"
+                options={{
+                    href: null,
                 }}
             />
             <Tabs.Screen
