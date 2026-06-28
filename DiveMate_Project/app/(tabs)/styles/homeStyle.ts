@@ -234,6 +234,35 @@ backgroundColor: 'rgba(255,255,255,0.12)',
         color: Colors.oceanDeep,
         marginBottom: 6,
     },
+
+    statsGrid: {
+        flexDirection: 'row',
+        gap: 10,
+    },
+    statCard: {
+        flex: 1,
+        backgroundColor: Colors.oceanLight,
+        borderRadius: 12,
+        padding: 12,
+        alignItems: 'center',
+        gap: 4,
+    },
+    statValue: {
+        fontSize: 20,
+        fontWeight: '700',
+        color: Colors.oceanDeep,
+    },
+    statUnit: {
+        fontSize: 12,
+        fontWeight: '400',
+        color: Colors.oceanMid,
+    },
+    statLabel: {
+        fontSize: 11,
+        color: Colors.grey,
+        textAlign: 'center',
+    },
+
     nextDiveCard: { backgroundColor: Colors.oceanLight, borderRadius: 12, padding: 14, gap: 6 },
     nextDiveTop: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 },
     nextDiveLocation: { fontSize: 17, fontWeight: '700', color: Colors.oceanDeep },

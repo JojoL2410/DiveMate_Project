@@ -68,8 +68,6 @@ export default function LogbuchScreen() {
                         </TouchableOpacity>
                     ))}
 
-
-
                 </View>
             </ScrollView>
             {/* BUTTON */}

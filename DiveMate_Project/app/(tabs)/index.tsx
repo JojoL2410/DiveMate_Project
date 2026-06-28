@@ -7,6 +7,13 @@ import { styles } from '../(tabs)/styles/homeStyle';
 export default function HomeScreen() {
     const { dives } = useDives();
     const lastDive = dives[0];
+    const avgDepth = dives.length > 0
+        ? Math.round(dives.reduce((sum, d) => sum + d.depth, 0) / dives.length)
+        : 0;
+
+    const avgDuration = dives.length > 0
+        ? Math.round(dives.reduce((sum, d) => sum + d.duration, 0) / dives.length)
+        : 0;
 
     return (
         <View style={styles.safeArea}>
@@ -68,13 +75,34 @@ export default function HomeScreen() {
                         </TouchableOpacity>
                     </View>
                 </View>
+                {/* STATISTIKEN */}
+                <View style={styles.section}>
+                    <Text style={styles.sectionLabel}>Meine Statistiken</Text>
+                    <View style={styles.statsGrid}>
 
+                        <View style={styles.statCard}>
+                            <Ionicons name="layers-outline" size={20} color="#185FA5" />
+                            <Text style={styles.statValue}>{dives.length}</Text>
+                            <Text style={styles.statLabel}>Tauchgänge</Text>
+                        </View>
+
+                        <View style={styles.statCard}>
+                            <Ionicons name="arrow-down-outline" size={20} color="#185FA5" />
+                            <Text style={styles.statValue}>{avgDepth}<Text style={styles.statUnit}> m</Text></Text>
+                            <Text style={styles.statLabel}>Ø Tiefe</Text>
+                        </View>
+
+                        <View style={styles.statCard}>
+                            <Ionicons name="time-outline" size={20} color="#185FA5" />
+                            <Text style={styles.statValue}>{avgDuration}<Text style={styles.statUnit}> min</Text></Text>
+                            <Text style={styles.statLabel}>Ø Dauer</Text>
+                        </View>
+
+                    </View>
+                </View>
                 {/* GRUPPE 2 – Deine letzten Abenteuer */}
                 <View style={styles.group}>
                     <Text style={styles.groupTitle}>Deine letzten Abenteuer</Text>
-                    <Text style={styles.groupSubTitle}>
-                        Hier findest du deinen zuletzt erfassten Tauchgang mit den wichtigsten Informationen auf einen Blick
-                    </Text>
                     {lastDive ? (
                         <View style={styles.lastDiveCard}>
                             <View style={styles.lastDiveLeft}>
