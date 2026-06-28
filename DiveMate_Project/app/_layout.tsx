@@ -16,16 +16,22 @@ export type Dive = {
 export type DiveContextType = {
     dives: Dive[];
     addDive: (dive: Dive) => void;
+    deleteDive: (id: string) => void;
+    updateDive: (dive: Dive) => void;
 };
 
 export const DiveContext = createContext<DiveContextType>({
     dives: [],
     addDive: () => {},
+    deleteDive: () => {},
+    updateDive: () => {},
 });
+
 
 export function useDives() {
     return useContext(DiveContext);
 }
+
 
 function DiveProvider({ children }: { children: ReactNode }) {
     const [dives, setDives] = useState<Dive[]>([
@@ -70,9 +76,15 @@ function DiveProvider({ children }: { children: ReactNode }) {
     const addDive = (dive: Dive) => {
         setDives((prev) => [dive, ...prev]);
     };
+    const deleteDive = (id: string) => {
+        setDives((prev) => prev.filter((d) => d.id !== id));
+    };
 
+    const updateDive = (dive: Dive) => {
+        setDives((prev) => prev.map((d) => d.id === dive.id ? dive : d));
+    };
     return (
-        <DiveContext.Provider value={{ dives, addDive }}>
+        <DiveContext.Provider value={{ dives, addDive, deleteDive, updateDive }}>
             {children}
         </DiveContext.Provider>
     );
@@ -89,6 +101,10 @@ export default function RootLayout() {
                 />
                 <Stack.Screen
                     name="details/diveDetails"
+                    options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                    name="details/diveEdit"
                     options={{ headerShown: false }}
                 />
             </Stack>
