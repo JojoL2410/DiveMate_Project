@@ -33,9 +33,10 @@ export default function DiveEditScreen() {
     }
     const isValid = location.trim() !== '' && depth !== '' && duration !== '';
 
-    const handleSave = () => {
+    const handleSave = async () => {
         if (!isValid) return;
-        updateDive({
+
+        await updateDive({
             ...dive,
             location: location.trim(),
             depth: parseFloat(depth),
@@ -45,6 +46,7 @@ export default function DiveEditScreen() {
             buddy,
             notes,
         });
+
         router.back();
     };
 

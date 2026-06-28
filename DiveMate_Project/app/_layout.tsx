@@ -1,6 +1,8 @@
 // app/_layout.tsx
 import { Stack } from 'expo-router';
-import React, { createContext, useState, useContext, ReactNode } from 'react';
+import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
+import { collection, deleteDoc, doc, getDocs, updateDoc } from 'firebase/firestore';
+import { db } from '../firebaseConfig';
 
 export type Dive = {
     id: string;
@@ -17,15 +19,15 @@ export type Dive = {
 export type DiveContextType = {
     dives: Dive[];
     addDive: (dive: Dive) => void;
-    deleteDive: (id: string) => void;
-    updateDive: (dive: Dive) => void;
+    deleteDive: (id: string) => Promise<void>;
+    updateDive: (dive: Dive) => Promise<void>;
 };
 
 export const DiveContext = createContext<DiveContextType>({
     dives: [],
     addDive: () => {},
-    deleteDive: () => {},
-    updateDive: () => {},
+    deleteDive: async () => {},
+    updateDive: async () => {},
 });
 
 
@@ -35,55 +37,57 @@ export function useDives() {
 
 
 function DiveProvider({ children }: { children: ReactNode }) {
-    const [dives, setDives] = useState<Dive[]>([
-        {
-            id: '1',
-            location: 'Attersee Süd',
-            date: '02. Mai 2026',
-            depth: 22,
-            duration: 52,
-            type: 'Freizeittauchen',
-            stars: 5,
-        },
-        {
-            id: '2',
-            location: 'Traunsee, Gmunden',
-            date: '28. Mai 2026',
-            depth: 18,
-            duration: 45,
-            type: 'Fotografie',
-            stars: 4,
-        },
-        {
-            id: '3',
-            location: 'Millstätter See',
-            date: '08. Juni 2026',
-            depth: 28,
-            duration: 61,
-            type: 'Freizeittauchen',
-            stars: 5,
-        },
-        {
-            id: '4',
-            location: 'Wörthersee Ost',
-            date: '16. Juni 2026',
-            depth: 15,
-            duration: 38,
-            type: 'Ausbildung',
-            stars: 3,
-        },
-    ]);
+    const [dives, setDives] = useState<Dive[]>([]);
+
+    useEffect(() => {
+        const loadDivesFromFirebase = async () => {
+            const snapshot = await getDocs(collection(db, 'dives'));
+
+            const firebaseDives = snapshot.docs.map((document) => {
+                const data = document.data();
+
+                return {
+                    id: document.id,
+                    location: String(data.location ?? ''),
+                    depth: Number(data.depth ?? 0),
+                    duration: Number(data.duration ?? 0),
+                    date: String(data.date ?? ''),
+                    type: String(data.type ?? ''),
+                    stars: Number(data.stars ?? 0),
+                    buddy: String(data.buddy ?? ''),
+                    notes: String(data.notes ?? ''),
+                };
+            });
+
+            setDives(firebaseDives);
+        };
+
+        loadDivesFromFirebase();
+    }, []);
 
     const addDive = (dive: Dive) => {
-        setDives((prev) => [dive, ...prev]);
+        setDives((prev) => [...prev, dive]);
     };
-    const deleteDive = (id: string) => {
+    const deleteDive = async (id: string) => {
+        await deleteDoc(doc(db, 'dives', id));
         setDives((prev) => prev.filter((d) => d.id !== id));
     };
 
-    const updateDive = (dive: Dive) => {
+    const updateDive = async (dive: Dive) => {
+        await updateDoc(doc(db, 'dives', dive.id), {
+            location: dive.location,
+            depth: dive.depth,
+            duration: dive.duration,
+            date: dive.date,
+            type: dive.type,
+            stars: dive.stars,
+            buddy: dive.buddy ?? '',
+            notes: dive.notes ?? '',
+        });
+
         setDives((prev) => prev.map((d) => d.id === dive.id ? dive : d));
     };
+
     return (
         <DiveContext.Provider value={{ dives, addDive, deleteDive, updateDive }}>
             {children}

@@ -1,16 +1,44 @@
 // app/(tabs)/tauchplatz.tsx
-import { useState } from 'react';
-import { View, Text, ScrollView, SafeAreaView, TouchableOpacity, ActivityIndicator } from 'react-native';
+
+import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import * as Location from 'expo-location';
-import { LAKES, Lake, getNearestLakeIfClose } from '../../constants/lakes';
+import { Lake } from '../../constants/lakes';
 import { styles } from './styles/tauchplatzStyles';
+import { useEffect, useState } from 'react';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../../firebaseConfig';
+import { getDistance } from 'geolib';
 
 export default function TauchplatzScreen() {
+    const [lakes, setLakes] = useState<Lake[]>([]);
     const router = useRouter();
     const [gpsLoading, setGpsLoading] = useState(false);
     const [gpsError, setGpsError]     = useState<string | null>(null);
+
+    useEffect(() => {
+        const loadLakesFromFirebase = async () => {
+            const snapshot = await getDocs(collection(db, 'lakes'));
+
+            const firebaseLakes = snapshot.docs.map((document) => {
+                const data = document.data();
+
+                return {
+                    id: document.id,
+                    name: String(data.name ?? ''),
+                    lat: Number(data.lat ?? 0),
+                    lng: Number(data.lng ?? 0),
+                    maxDepth: Number(data.maxDepth ?? 0),
+                    monthlyTemps: data.monthlyTemps ?? {},
+                };
+            });
+
+            setLakes(firebaseLakes);
+        };
+
+        loadLakesFromFirebase();
+    }, []);
 
     function goToWetter(lake: Lake) {
         router.push(`/wetter?lakeId=${lake.id}`);
@@ -27,7 +55,25 @@ export default function TauchplatzScreen() {
             }
             const loc = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced });
             const { latitude, longitude } = loc.coords;
-            const nearest = getNearestLakeIfClose(latitude, longitude);
+            let nearest: Lake | null = null;
+            let minDistance = Infinity;
+
+            for (const lake of lakes) {
+                const dist = getDistance(
+                    { latitude, longitude },
+                    { latitude: lake.lat, longitude: lake.lng }
+                );
+
+                if (dist < minDistance) {
+                    minDistance = dist;
+                    nearest = lake;
+                }
+            }
+
+            if (minDistance > 20000) {
+                nearest = null;
+            }
+
             if (nearest) {
                 goToWetter(nearest);
             } else {
@@ -55,7 +101,7 @@ export default function TauchplatzScreen() {
             <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>
                 <View style={styles.section}>
                     <Text style={styles.sectionLabel}>Top Tauchplätze</Text>
-                    {LAKES.map((lake) => (
+                    {lakes.map((lake) => (
                         <TouchableOpacity
                             key={lake.id}
                             style={styles.lakeRow}

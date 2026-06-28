@@ -30,8 +30,8 @@ export default function DiveDetailScreen() {
                 {
                     text: 'Löschen',
                     style: 'destructive',
-                    onPress: () => {
-                        deleteDive(id);
+                    onPress: async () => {
+                        await deleteDive(id);
                         router.back();
                     },
                 },

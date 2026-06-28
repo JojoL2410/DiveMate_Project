@@ -5,6 +5,8 @@ import { useState } from 'react';
 import { router } from 'expo-router';
 import { useDives } from './_layout';
 import { styles } from './(tabs)/styles/modalStyles';
+import { doc, setDoc } from 'firebase/firestore';
+import { db } from '../firebaseConfig';
 
 const DIVE_TYPES = ['Freizeittauchen', 'Fotografie', 'Ausbildung', 'Technisch', 'Nachttauchen'];
 
@@ -21,10 +23,10 @@ export default function ModalScreen() {
 
     const isValid = location.trim() !== '' && depth !== '' && duration !== '';
 
-    const handleSave = () => {
+    const handleSave = async () => {
         if (!isValid) return;
 
-        addDive({
+        const newDive = {
             id: Date.now().toString(),
             location: location.trim(),
             depth: parseFloat(depth),
@@ -34,12 +36,16 @@ export default function ModalScreen() {
                 month: 'long',
                 year: 'numeric',
             }),
+            createdAt: Date.now(),
             type,
             stars,
             buddy,
             notes,
-        });
+        };
 
+        await setDoc(doc(db, 'dives', newDive.id), newDive);
+
+        addDive(newDive);
         router.back();
     };
 
