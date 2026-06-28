@@ -9,12 +9,12 @@ type Props = {
     icon?: keyof typeof Ionicons.glyphMap;
 };
 
-export default function ScreenHeader({ title, subtitle, icon }: Props) {
+export default function ScreenHeader({ title, subtitle }: Props) {
     return (
         <View style={styles.header}>
             <View style={styles.headerTop}>
                 <Text style={styles.headerTitle}>{title}</Text>
-                {icon && <Ionicons name={icon} size={22} color="rgba(255,255,255,0.5)" />}
+                <Ionicons name="person-circle-outline" size={28} color="rgba(255,255,255,0.7)" />
             </View>
             {subtitle && (
                 <Text style={styles.headerSubtitle}>{subtitle}</Text>
