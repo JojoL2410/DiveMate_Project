@@ -13,8 +13,7 @@ type EquipItem = {
 
 const initialItems: EquipItem[] = [
     { id: '1', label: 'Tauchmaske',            category: 'Sicherheit',    done: false },
-    { id: '2', label: 'Atemregler (Haupt)',     category: 'Sicherheit',    done: false },
-    { id: '3', label: 'Atemregler (Oktopus)',   category: 'Sicherheit',    done: false },
+    { id: '2', label: 'Atemregler (Haupt+ Oktopus)', category: 'Sicherheit',    done: false },
     { id: '4', label: 'BCD / Tarierweste',      category: 'Auftrieb',      done: false },
     { id: '5', label: 'Tauchcomputer',          category: 'Navigation',    done: false },
     { id: '6', label: 'Neoprenanzug 5 mm',      category: 'Bekleidung',    done: false },

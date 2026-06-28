@@ -39,7 +39,7 @@ function DiveProvider({ children }: { children: ReactNode }) {
         {
             id: '1',
             location: 'Attersee Süd',
-            date: '18. Mai 2025',
+            date: '02. Mai 2026',
             depth: 22,
             duration: 52,
             type: 'Freizeittauchen',
@@ -48,7 +48,7 @@ function DiveProvider({ children }: { children: ReactNode }) {
         {
             id: '2',
             location: 'Traunsee, Gmunden',
-            date: '10. Mai 2025',
+            date: '28. Mai 2026',
             depth: 18,
             duration: 45,
             type: 'Fotografie',
@@ -57,7 +57,7 @@ function DiveProvider({ children }: { children: ReactNode }) {
         {
             id: '3',
             location: 'Millstätter See',
-            date: '03. Mai 2025',
+            date: '08. Juni 2026',
             depth: 28,
             duration: 61,
             type: 'Freizeittauchen',
@@ -66,7 +66,7 @@ function DiveProvider({ children }: { children: ReactNode }) {
         {
             id: '4',
             location: 'Wörthersee Ost',
-            date: '24. Apr 2025',
+            date: '16. Juni 2026',
             depth: 15,
             duration: 38,
             type: 'Ausbildung',
