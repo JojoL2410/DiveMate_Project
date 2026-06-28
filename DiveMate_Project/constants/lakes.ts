@@ -119,6 +119,30 @@ export const LAKES: Lake[] = [
             9: 11, 10: 8, 11: 5, 12: 2,
         },
     },
+    {
+        id: 'grundlsee',
+        name: 'Grundlsee',
+        lat: 47.62,
+        lng: 13.84,
+        maxDepth: 64,
+        monthlyTemps: {
+            1: 4,  2: 5,  3: 5,  4: 6,
+            5: 11, 6: 14, 7: 16, 8: 21,
+            9: 13, 10: 10, 11: 8, 12: 5,
+        },
+    },
+    {
+        id: 'woerthersee',
+        name: 'Wörthersee',
+        lat: 46.62,
+        lng: 14.15,
+        maxDepth: 85,
+        monthlyTemps: {
+            1: 3,  2: 4,  3: 6,  4: 11,
+            5: 15, 6: 19, 7: 21, 8: 20,
+            9: 17, 10: 13, 11: 8, 12: 4,
+        },
+    },
 ];
 
 // ─── Hilfsfunktionen ─────────────────────────────────────────────────────────
