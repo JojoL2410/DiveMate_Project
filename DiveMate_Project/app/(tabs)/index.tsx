@@ -43,7 +43,6 @@ export default function HomeScreen() {
                                 <Ionicons name="pin-outline" size={22} color="#185FA5" />
                             </View>
                             <Text style={styles.quickLabel}>Tauchplatz</Text>
-                            <Text style={styles.quickSub}></Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity style={styles.quickCard} onPress={() => router.push('/(tabs)/ausruestung')}>
@@ -51,7 +50,6 @@ export default function HomeScreen() {
                                 <MaterialCommunityIcons name="bag-personal-outline" size={22} color="#1D9E75" />
                             </View>
                             <Text style={styles.quickLabel}>Ausrüstung</Text>
-                            <Text style={styles.quickSub}>0 / 9 gecheckt</Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity style={styles.quickCard} onPress={() => router.push('/(tabs)/buddy')}>
@@ -59,7 +57,6 @@ export default function HomeScreen() {
                                 <Ionicons name="people-outline" size={22} color="#6D28D9" />
                             </View>
                             <Text style={styles.quickLabel}>Buddy</Text>
-                            <Text style={styles.quickSub}>0 / 5 Schritte</Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity style={styles.quickCard} onPress={() => router.push('/(tabs)/logbuch')}>
@@ -67,7 +64,6 @@ export default function HomeScreen() {
                                 <Ionicons name="book-outline" size={22} color="#EF9F27" />
                             </View>
                             <Text style={styles.quickLabel}>Logbuch</Text>
-                            <Text style={styles.quickSub}>{dives.length} Tauchgänge</Text>
                         </TouchableOpacity>
 
                     </View>
