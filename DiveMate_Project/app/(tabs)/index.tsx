@@ -33,32 +33,6 @@ export default function HomeScreen() {
 
             <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>
 
-                {/* NÄCHSTER TAUCHGANG */}
-                <View style={styles.section}>
-                    <Text style={styles.sectionLabel}>Nächster Tauchgang</Text>
-                    <View style={styles.nextDiveCard}>
-                        <View style={styles.nextDiveTop}>
-                            <Text style={styles.nextDiveLocation}>Attersee Süd</Text>
-                            <View style={styles.diveBadge}>
-                                <Ionicons name="pricetag" size={11} color="#185FA5" />
-                                <Text style={styles.diveBadgeText}>Freizeittauchen</Text>
-                            </View>
-                        </View>
-                        <View style={styles.nextDiveRow}>
-                            <Ionicons name="calendar-outline" size={14} color="#888" />
-                            <Text style={styles.nextDiveInfo}>Sa, 17. Mai 2025 · 09:00 Uhr</Text>
-                        </View>
-                        <View style={styles.nextDiveRow}>
-                            <Ionicons name="people-outline" size={14} color="#888" />
-                            <Text style={styles.nextDiveInfo}>Buddy: Maria S.</Text>
-                        </View>
-                        <View style={styles.nextDiveRow}>
-                            <Ionicons name="arrow-down-outline" size={14} color="#888" />
-                            <Text style={styles.nextDiveInfo}>Zieltiefe: 20 m · ca. 50 min</Text>
-                        </View>
-                    </View>
-                </View>
-
                 {/* QUICK ACTIONS */}
                 <View style={styles.section}>
                     <Text style={styles.sectionLabel}>Schnellzugriff</Text>
