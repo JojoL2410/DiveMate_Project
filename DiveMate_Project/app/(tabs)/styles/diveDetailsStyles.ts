@@ -36,6 +36,25 @@ export const styles = StyleSheet.create({
         color: '#B5D4F4',
         marginLeft: 40,
     },
+    headerButtons: {
+        flexDirection: 'row',
+        gap: 8,
+    },
+    headerBtn: {
+        width: 34,
+        height: 34,
+        borderRadius: 8,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    headerBtnDelete: {
+        padding: 8,
+        backgroundColor: 'rgba(163, 45, 45, 0.25)',
+    },
+    headerBtnEdit: {
+        padding: 8,
+        backgroundColor: 'rgba(255, 255, 255, 0.15)',
+    },
 
     // Stats Row
     statsRow: {
