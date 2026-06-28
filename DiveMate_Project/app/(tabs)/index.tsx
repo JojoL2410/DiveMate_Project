@@ -102,7 +102,7 @@ export default function HomeScreen() {
 
                 {/* GRUPPE 2 – Deine letzten Abenteuer */}
                 <View style={styles.group}>
-                    <Text style={styles.sectionLabel}>Letzter Tauchgang:</Text>
+                    <Text style={styles.sectionLabel}>Letzter Tauchgang</Text>
                     {lastDive ? (
                         <View style={styles.lastDiveCard}>
                             <View style={styles.lastDiveLeft}>
