@@ -35,9 +35,9 @@ export default function TabLayout() {
             <Tabs.Screen
                 name="tauchplatz"
                 options={{
-                    title: 'Wetter',
+                    title: 'Tauchplätze',
                     tabBarIcon: ({ color, size }) => (
-                        <Ionicons name="cloud-outline" size={size} color={color} />
+                        <Ionicons name="list-outline" size={size} color={color} />
                     ),
                 }}
             />

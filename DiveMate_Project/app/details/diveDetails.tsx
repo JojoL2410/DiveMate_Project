@@ -29,21 +29,16 @@ export default function DiveDetailScreen() {
 
     return (
         <View style={styles.safeArea}>
-
-            {/* HEADER */}
             <View style={styles.header}>
-    <View style={styles.headerTop}>
-    <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
-    <Ionicons name="chevron-back" size={24} color="white" />
-        </TouchableOpacity>
-        <Text style={styles.headerLocation} numberOfLines={1}>
-        {dive.location}
-        </Text>
-        </View>
-        <Text style={styles.headerDate}>{dive.date}</Text>
-        </View>
+                <View style={styles.headerTop}>
+                    <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
+                        <Ionicons name="chevron-back" size={24} color="white" />
+                    </TouchableOpacity>
+                    <Text style={styles.headerLocation} numberOfLines={1}>{dive.location}</Text>
+                </View>
+                <Text style={styles.headerDate}>{dive.date}</Text>
+            </View>
 
-    {/* STATS KARTEN – überlappen den Header */}
     <View style={styles.statsRow}>
     <View style={styles.statCard}>
     <Ionicons name="arrow-down-outline" size={20} color="#185FA5" />
@@ -100,8 +95,6 @@ export default function DiveDetailScreen() {
 ))}
     </View>
     </View>
-
-    {/* NOTIZEN */}
     <View style={styles.section}>
     <Text style={styles.sectionLabel}>Notizen</Text>
         <View style={styles.notesBox}>

@@ -64,12 +64,12 @@ export default function HomeScreen() {
                     <Text style={styles.sectionLabel}>Schnellzugriff</Text>
                     <View style={styles.quickGrid}>
 
-                        <TouchableOpacity style={styles.quickCard} onPress={() => router.push('/(tabs)/wetter')}>
+                        <TouchableOpacity style={styles.quickCard} onPress={() => router.push('/(tabs)/tauchplatz')}>
                             <View style={[styles.quickIcon, styles.quickIconBlue]}>
-                                <Ionicons name="cloud-outline" size={22} color="#185FA5" />
+                                <Ionicons name="pin-outline" size={22} color="#185FA5" />
                             </View>
-                            <Text style={styles.quickLabel}>Wetter</Text>
-                            <Text style={styles.quickSub}>Gut · 17°C</Text>
+                            <Text style={styles.quickLabel}>Tauchplatz</Text>
+                            <Text style={styles.quickSub}></Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity style={styles.quickCard} onPress={() => router.push('/(tabs)/ausruestung')}>

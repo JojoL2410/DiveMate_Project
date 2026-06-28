@@ -4,7 +4,7 @@ import { View, Text, ScrollView, ActivityIndicator, TouchableOpacity } from 'rea
 import { Ionicons } from '@expo/vector-icons';
 import {router, useLocalSearchParams, useRouter} from 'expo-router';
 import { LAKES, Lake, getCurrentTemp } from '../../constants/lakes';
-import { styles } from './styles/wetterStyles';
+import { styles } from '../(tabs)/styles/wetterStyles';
 
 // ─── Typen ───────────────────────────────────────────────────────────────────
 
