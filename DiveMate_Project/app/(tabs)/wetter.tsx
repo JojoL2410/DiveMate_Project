@@ -192,6 +192,10 @@ export default function WetterScreen() {
                 </View>
                 <ScrollView style={styles.scroll}>
                     <View style={styles.section}>
+                        <Text style={{ color: '#A32D2D', fontSize: 14, marginBottom: 12 }}>
+                            Wetterdaten konnten nicht geladen werden. Bitte prüfe deine Internetverbindung.
+                        </Text>
+
                         <TouchableOpacity
                             onPress={loadWeather}
                             style={{ marginTop: 12, backgroundColor: '#185FA5', borderRadius: 10, padding: 12, alignItems: 'center' }}

@@ -1,5 +1,5 @@
 // app/modal.tsx
-import { View, Text, TextInput, ScrollView, TouchableOpacity, KeyboardAvoidingView, Platform} from 'react-native';
+import { View, Text, TextInput, ScrollView, TouchableOpacity, KeyboardAvoidingView, Platform, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
 import { router } from 'expo-router';
@@ -43,10 +43,17 @@ export default function ModalScreen() {
             notes,
         };
 
-        await setDoc(doc(db, 'dives', newDive.id), newDive);
+        try {
+            await setDoc(doc(db, 'dives', newDive.id), newDive);
 
-        addDive(newDive);
-        router.back();
+            addDive(newDive);
+            router.back();
+        } catch {
+            Alert.alert(
+                'Keine Verbindung',
+                'Der Tauchgang konnte nicht gespeichert werden. Bitte prüfe deine Internetverbindung und versuche es erneut.'
+            );
+        }
     };
 
     return (

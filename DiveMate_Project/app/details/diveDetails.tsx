@@ -31,8 +31,15 @@ export default function DiveDetailScreen() {
                     text: 'Löschen',
                     style: 'destructive',
                     onPress: async () => {
-                        await deleteDive(id);
-                        router.back();
+                        try {
+                            await deleteDive(id);
+                            router.back();
+                        } catch {
+                            Alert.alert(
+                                'Keine Verbindung',
+                                'Der Tauchgang konnte nicht gelöscht werden. Bitte prüfe deine Internetverbindung.'
+                            );
+                        }
                     },
                 },
             ]

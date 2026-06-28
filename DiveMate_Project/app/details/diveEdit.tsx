@@ -1,8 +1,5 @@
 // app/details/diveEdit.tsx
-import {
-    View, Text, TextInput, ScrollView,
-    TouchableOpacity, KeyboardAvoidingView, Platform,
-} from 'react-native';
+import {View, Text, TextInput, ScrollView, TouchableOpacity, KeyboardAvoidingView, Platform, Alert,} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
 import { router, useLocalSearchParams } from 'expo-router';
@@ -36,18 +33,26 @@ export default function DiveEditScreen() {
     const handleSave = async () => {
         if (!isValid) return;
 
-        await updateDive({
-            ...dive,
-            location: location.trim(),
-            depth: parseFloat(depth),
-            duration: parseInt(duration),
-            type,
-            stars,
-            buddy,
-            notes,
-        });
+        try {
+            await updateDive({
+                ...dive,
+                location: location.trim(),
+                depth: parseFloat(depth),
+                duration: parseInt(duration),
+                type,
+                stars,
+                buddy,
+                notes,
+            });
 
-        router.back();
+            router.back();
+        } catch {
+            Alert.alert(
+                'Keine Verbindung',
+                'Die Änderungen konnten nicht gespeichert werden. Bitte prüfe deine Internetverbindung.'
+            );
+        }
+
     };
 
     return (
