@@ -18,14 +18,17 @@ export default function HomeScreen() {
                     <Text style={styles.appTitle}>
                         Dive<Text style={styles.appTitleAccent}>Log</Text>
                     </Text>
-                    <View style={styles.gpsBadge}>
-                        <Ionicons name="location" size={12} color="#9FE1CB" />
-                        <Text style={styles.gpsBadgeText}>Attersee, AT</Text>
-                    </View>
                 </View>
                 <View style={styles.locationLine}>
                     <Ionicons name="calendar-outline" size={13} color="#B5D4F4" />
-                    <Text style={styles.locationLineText}>Samstag, 17. Mai 2025</Text>
+                    <Text style={styles.locationLineText}>
+                        {new Date().toLocaleDateString('de-AT', {
+                            weekday: 'long',
+                            day: 'numeric',
+                            month: 'long',
+                            year: 'numeric',
+                        })}
+                    </Text>
                 </View>
             </View>
 
@@ -75,7 +78,7 @@ export default function HomeScreen() {
                                 <MaterialCommunityIcons name="bag-personal-outline" size={22} color="#1D9E75" />
                             </View>
                             <Text style={styles.quickLabel}>Ausrüstung</Text>
-                            <Text style={styles.quickSub}>3 / 9 gecheckt</Text>
+                            <Text style={styles.quickSub}>0 / 9 gecheckt</Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity style={styles.quickCard} onPress={() => router.push('/(tabs)/buddy')}>

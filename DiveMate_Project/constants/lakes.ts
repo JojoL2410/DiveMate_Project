@@ -110,40 +110,9 @@ export const LAKES: Lake[] = [
     },
 ];
 
-// Berechnet die Distanz zwischen zwei GPS-Koordinaten in km (Haversine)
-function haversineDistance(lat1: number, lng1: number, lat2: number, lng2: number): number {
-    const R = 6371;
-    const dLat = ((lat2 - lat1) * Math.PI) / 180;
-    const dLng = ((lng2 - lng1) * Math.PI) / 180;
-    const a =
-        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-        Math.cos((lat1 * Math.PI) / 180) *
-        Math.cos((lat2 * Math.PI) / 180) *
-        Math.sin(dLng / 2) * Math.sin(dLng / 2);
-    return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-}
-
-// Gibt den nächsten See zur GPS-Position zurück
-export function getNearestLake(lat: number, lng: number): Lake {
-    return LAKES.reduce((nearest, lake) => {
-        const distCurrent = haversineDistance(lat, lng, nearest.lat, nearest.lng);
-        const distLake = haversineDistance(lat, lng, lake.lat, lake.lng);
-        return distLake < distCurrent ? lake : nearest;
-    });
-}
-
 // Gibt die aktuelle Wassertemperatur für einen See zurück
 export function getCurrentTemp(lake: Lake): number {
     const month = new Date().getMonth() + 1;
     return lake.monthlyTemps[month];
 }
 
-// Maximale Distanz in km – weiter entfernt = kein See in der Nähe
-export const MAX_LAKE_DISTANCE_KM = 20;
-
-// Gibt null zurück wenn kein See nahe genug ist
-export function getNearestLakeIfClose(lat: number, lng: number): Lake | null {
-    const nearest = getNearestLake(lat, lng);
-    const dist = haversineDistance(lat, lng, nearest.lat, nearest.lng);
-    return dist <= MAX_LAKE_DISTANCE_KM ? nearest : null;
-}
