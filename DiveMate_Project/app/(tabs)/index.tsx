@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, Linking } from 'react-native';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { useDives } from '../_layout';
@@ -33,11 +33,15 @@ export default function HomeScreen() {
 
             <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>
 
-                {/* QUICK ACTIONS */}
-                <View style={styles.section}>
-                    <Text style={styles.sectionLabel}>Schnellzugriff</Text>
-                    <View style={styles.quickGrid}>
+                {/* GRUPPE 1 – Willkommen + Schnellzugriff */}
+                <View style={styles.group}>
+                    <Text style={styles.groupTitle}>Willkommen bei DiveMate!</Text>
+                    <Text style={styles.welcomeText}>
+                        DiveMate unterstützt dich dabei, Tauchplätze zu entdecken, deine Ausrüstung zu verwalten,
+                        dein Buddy Check-in durchzuführen und deine Tauchgänge im Logbuch festzuhalten.
+                    </Text>
 
+                    <View style={styles.quickGrid}>
                         <TouchableOpacity style={styles.quickCard} onPress={() => router.push('/(tabs)/tauchplatz')}>
                             <View style={[styles.quickIcon, styles.quickIconBlue]}>
                                 <Ionicons name="pin-outline" size={22} color="#185FA5" />
@@ -65,14 +69,16 @@ export default function HomeScreen() {
                             </View>
                             <Text style={styles.quickLabel}>Logbuch</Text>
                         </TouchableOpacity>
-
                     </View>
                 </View>
 
-                {/* LETZTER TAUCHGANG */}
-                {lastDive && (
-                    <View style={styles.section}>
-                        <Text style={styles.sectionLabel}>Zuletzt getaucht</Text>
+                {/* GRUPPE 2 – Deine letzten Abenteuer */}
+                <View style={styles.group}>
+                    <Text style={styles.groupTitle}>Deine letzten Abenteuer</Text>
+                    <Text style={styles.groupSubTitle}>
+                        Hier findest du deinen zuletzt erfassten Tauchgang mit den wichtigsten Informationen auf einen Blick
+                    </Text>
+                    {lastDive ? (
                         <View style={styles.lastDiveCard}>
                             <View style={styles.lastDiveLeft}>
                                 <Text style={styles.lastDiveLocation}>{lastDive.location}</Text>
@@ -89,8 +95,31 @@ export default function HomeScreen() {
                                 </View>
                             </View>
                         </View>
-                    </View>
-                )}
+                    ) : (
+                        <View style={styles.emptyDiveCard}>
+                            <Ionicons name="fish-outline" size={28} color="#B5D4F4" />
+                            <Text style={styles.emptyDiveText}>Noch kein Tauchgang erfasst.</Text>
+                            <Text style={styles.emptyDiveText}>Trag deinen ersten Tauchgang im Logbuch ein!</Text>
+                        </View>
+                    )}
+                </View>
+
+                {/* GRUPPE 3 – Tauchplatz vorschlagen */}
+                <View style={[styles.group, styles.groupLast]}>
+                    <Text style={styles.groupTitle}>Dein Tauchplatz fehlt?</Text>
+                    <Text style={styles.suggestionText}>
+                        Kennst du einen besonderen Tauchplatz, der noch nicht in DiveMate vorhanden ist?
+                        Dann schreib uns eine Nachricht. Wir prüfen deinen Vorschlag und nehmen ihn bei
+                        passenden Informationen gerne in DiveMate auf.
+                    </Text>
+                    <TouchableOpacity
+                        style={styles.suggestionMailRow}
+                        onPress={() => Linking.openURL('mailto:divemate@mail.com')}
+                    >
+                        <Ionicons name="mail-outline" size={15} color="#185FA5" />
+                        <Text style={styles.suggestionMail}>divemate@mail.com</Text>
+                    </TouchableOpacity>
+                </View>
 
             </ScrollView>
         </View>

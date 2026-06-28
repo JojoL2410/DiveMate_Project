@@ -3,39 +3,39 @@ import { StyleSheet } from 'react-native';
 import { Colors } from '../../../constants/theme';
 
 export const styles = StyleSheet.create({
-    safeArea: {
-        flex: 1,
-        backgroundColor: Colors.oceanDeep,
-        paddingTop: 60,
-    },
+safeArea: {
+flex: 1,
+backgroundColor: Colors.oceanDeep,
+paddingTop: 60,
+},
 
-    // Header
-    header: {
-        backgroundColor: Colors.oceanDeep,
-        paddingHorizontal: 16,
-        paddingTop: 12,
-        paddingBottom: 18,
-    },
-    headerTop: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginBottom: 8,
-    },
-    appTitle: {
-        fontSize: 22,
-        fontWeight: '600',
-        color: Colors.white,
-        letterSpacing: -0.4,
-    },
-    appTitleAccent: {
-        color: '#5DCAA5',
-    },
-    gpsBadge: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        gap: 4,
-        backgroundColor: 'rgba(255,255,255,0.12)',
+// Header
+header: {
+backgroundColor: Colors.oceanDeep,
+paddingHorizontal: 16,
+paddingTop: 12,
+paddingBottom: 18,
+},
+headerTop: {
+flexDirection: 'row',
+justifyContent: 'space-between',
+alignItems: 'center',
+marginBottom: 8,
+},
+appTitle: {
+fontSize: 22,
+fontWeight: '600',
+color: Colors.white,
+letterSpacing: -0.4,
+},
+appTitleAccent: {
+color: '#5DCAA5',
+},
+gpsBadge: {
+flexDirection: 'row',
+alignItems: 'center',
+gap: 4,
+backgroundColor: 'rgba(255,255,255,0.12)',
         borderRadius: 20,
         paddingVertical: 4,
         paddingHorizontal: 10,
@@ -54,72 +54,58 @@ export const styles = StyleSheet.create({
         color: '#B5D4F4',
     },
 
-    // Scroll & Sections
+    // Scroll
     scroll: {
         flex: 1,
-        backgroundColor: Colors.white,
-    },
-    section: {
-        padding: 14,
-        borderBottomWidth: 1,
-        borderBottomColor: '#f0f0f0',
-    },
-    sectionLabel: {
-        fontSize: 11,
-        fontWeight: '600',
-        textTransform: 'uppercase',
-        letterSpacing: 0.8,
-        color: Colors.grey,
-        marginBottom: 10,
+        backgroundColor: '#F2F4F7',  // grauer Hintergrund zwischen Gruppen
     },
 
-    // Nächster Tauchgang
-    nextDiveCard: {
-        backgroundColor: Colors.oceanLight,
-        borderRadius: 12,
-        padding: 14,
-        gap: 6,
+    // ─── GRUPPEN-KARTEN ────────────────────────────────────────────────────────
+    // Jede Gruppe ist eine weiße Karte mit Abstand nach unten
+    group: {
+        backgroundColor: Colors.white,
+        marginHorizontal: 14,
+        marginTop: 14,
+        borderRadius: 16,
+        padding: 16,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.06,
+        shadowRadius: 4,
+        elevation: 2,
     },
-    nextDiveTop: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginBottom: 4,
+    groupLast: {
+        marginBottom: 24,  // extra Abstand unten für die letzte Gruppe
     },
-    nextDiveLocation: {
+
+    // Gruppen-Überschrift – groß und dunkel
+    groupTitle: {
         fontSize: 17,
         fontWeight: '700',
         color: Colors.oceanDeep,
+        marginBottom: 4,
     },
-    diveBadge: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        gap: 4,
-        backgroundColor: Colors.white,
-        borderRadius: 20,
-        paddingVertical: 3,
-        paddingHorizontal: 8,
-    },
-    diveBadgeText: {
-        fontSize: 11,
-        color: Colors.oceanMid,
-        fontWeight: '500',
-    },
-    nextDiveRow: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        gap: 6,
-    },
-    nextDiveInfo: {
+    groupSubTitle: {
         fontSize: 13,
-        color: '#444',
+        color: '#666',
+        lineHeight: 19,
+        marginBottom: 14,
     },
 
-    // Quick Actions
+    // ─── WILLKOMMEN ────────────────────────────────────────────────────────────
+    welcomeText: {
+        fontSize: 14,
+        color: '#555',
+        lineHeight: 21,
+        marginTop: 6,
+    },
+
+    // ─── QUICK ACTIONS ─────────────────────────────────────────────────────────
     quickGrid: {
         flexDirection: 'row',
         flexWrap: 'wrap',
         gap: 10,
+        marginTop: 4,
     },
     quickCard: {
         width: '47%',
@@ -152,16 +138,14 @@ export const styles = StyleSheet.create({
         marginTop: 2,
     },
 
-    // Letzter Tauchgang
+    // ─── LETZTER TAUCHGANG ─────────────────────────────────────────────────────
     lastDiveCard: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        backgroundColor: '#fafafa',
+        backgroundColor: Colors.oceanLight,
         borderRadius: 12,
         padding: 14,
-        borderWidth: 1,
-        borderColor: Colors.border,
     },
     lastDiveLeft: {
         gap: 3,
@@ -189,4 +173,73 @@ export const styles = StyleSheet.create({
         color: Colors.oceanMid,
         fontWeight: '500',
     },
+    emptyDiveCard: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 24,
+        backgroundColor: '#fafafa',
+        borderRadius: 12,
+        borderWidth: 1,
+        borderColor: Colors.border,
+        gap: 6,
+    },
+    emptyDiveText: {
+        fontSize: 13,
+        color: Colors.grey,
+        textAlign: 'center',
+    },
+
+    // ─── TAUCHPLATZ VORSCHLAG ──────────────────────────────────────────────────
+    suggestionText: {
+        fontSize: 13,
+        color: '#555',
+        lineHeight: 20,
+        marginTop: 6,
+        marginBottom: 12,
+    },
+    suggestionMailRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 6,
+    },
+    suggestionMail: {
+        fontSize: 14,
+        fontWeight: '600',
+        color: '#185FA5',
+    },
+
+    // Legacy – wird nicht mehr verwendet aber schadet nicht
+    section: {
+        padding: 14,
+        borderBottomWidth: 1,
+        borderBottomColor: '#f0f0f0',
+    },
+    sectionLabel: {
+        fontSize: 11,
+        fontWeight: '600',
+        textTransform: 'uppercase',
+        letterSpacing: 0.8,
+        color: Colors.grey,
+        marginBottom: 6,
+    },
+    sectionSubLabel: {
+        fontSize: 13,
+        color: Colors.grey,
+        marginBottom: 10,
+        lineHeight: 18,
+    },
+    welcomeTitle: {
+        fontSize: 18,
+        fontWeight: '700',
+        color: Colors.oceanDeep,
+        marginBottom: 6,
+    },
+    nextDiveCard: { backgroundColor: Colors.oceanLight, borderRadius: 12, padding: 14, gap: 6 },
+    nextDiveTop: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 },
+    nextDiveLocation: { fontSize: 17, fontWeight: '700', color: Colors.oceanDeep },
+    diveBadge: { flexDirection: 'row', alignItems: 'center', gap: 4, backgroundColor: Colors.white, borderRadius: 20, paddingVertical: 3, paddingHorizontal: 8 },
+    diveBadgeText: { fontSize: 11, color: Colors.oceanMid, fontWeight: '500' },
+    nextDiveRow: { flexDirection: 'row', alignItems: 'center', gap: 6 },
+    nextDiveInfo: { fontSize: 13, color: '#444' },
+    suggestionCard: { backgroundColor: Colors.oceanLight, borderRadius: 12, padding: 14, gap: 10 },
 });
