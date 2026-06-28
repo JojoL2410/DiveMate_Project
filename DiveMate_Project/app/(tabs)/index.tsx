@@ -6,7 +6,7 @@ import { styles } from '../(tabs)/styles/homeStyle';
 
 export default function HomeScreen() {
     const { dives } = useDives();
-    const lastDive = dives[0];
+    const lastDive = dives[dives.length - 1];
     const avgDepth = dives.length > 0
         ? Math.round(dives.reduce((sum, d) => sum + d.depth, 0) / dives.length)
         : 0;
