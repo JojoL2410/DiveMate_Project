@@ -1,7 +1,6 @@
-// app/(tabs)/wetter.tsx  ← das ist eure neue ERSTE Ansicht (Tauchplatz-Auswahl)
-// Speichert den gewählten See und navigiert zur Wetterseite
-import { useEffect, useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
+// app/(tabs)/tauchplatz.tsx
+import { useState } from 'react';
+import { View, Text, ScrollView, SafeAreaView, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import * as Location from 'expo-location';
@@ -13,12 +12,10 @@ export default function TauchplatzScreen() {
     const [gpsLoading, setGpsLoading] = useState(false);
     const [gpsError, setGpsError]     = useState<string | null>(null);
 
-    /** Navigiert zur Wetterseite und übergibt die See-ID als URL-Parameter */
     function goToWetter(lake: Lake) {
         router.push(`/wetter?lakeId=${lake.id}`);
     }
 
-    /** GPS: nächsten See suchen und direkt zur Wetterseite */
     async function handleGps() {
         setGpsLoading(true);
         setGpsError(null);
@@ -44,19 +41,18 @@ export default function TauchplatzScreen() {
     }
 
     return (
-        <View style={styles.safeArea}>
+        <SafeAreaView style={styles.safeArea}>
 
             {/* HEADER */}
             <View style={styles.header}>
                 <View style={styles.headerTop}>
                     <Text style={styles.headerTitle}>Tauchplatz wählen</Text>
+                    <Ionicons name="person-circle-outline" size={28} color="rgba(255,255,255,0.7)" />
                 </View>
                 <Text style={styles.headerSubtitle}>Wähle einen See oder nutze GPS</Text>
             </View>
 
             <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>
-
-                {/* SEEN-LISTE */}
                 <View style={styles.section}>
                     <Text style={styles.sectionLabel}>Top Tauchplätze</Text>
                     {LAKES.map((lake) => (
@@ -77,14 +73,10 @@ export default function TauchplatzScreen() {
                         </TouchableOpacity>
                     ))}
                 </View>
-
             </ScrollView>
 
-            {/* GPS BUTTON – fixiert am unteren Rand */}
             <View style={styles.gpsContainer}>
-                {gpsError && (
-                    <Text style={styles.gpsError}>{gpsError}</Text>
-                )}
+                {gpsError && <Text style={styles.gpsError}>{gpsError}</Text>}
                 <TouchableOpacity
                     style={styles.gpsButton}
                     onPress={handleGps}
@@ -101,6 +93,6 @@ export default function TauchplatzScreen() {
                 </TouchableOpacity>
             </View>
 
-        </View>
+        </SafeAreaView>
     );
 }
