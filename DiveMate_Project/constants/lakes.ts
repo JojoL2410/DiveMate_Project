@@ -1,4 +1,5 @@
 // constants/lakes.ts
+import { getDistance } from 'geolib';
 
 export type Lake = {
     id: string;
