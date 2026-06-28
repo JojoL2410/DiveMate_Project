@@ -192,13 +192,6 @@ export default function WetterScreen() {
                 </View>
                 <ScrollView style={styles.scroll}>
                     <View style={styles.section}>
-                        <View style={styles.offlineBanner}>
-                            <Ionicons name="wifi" size={18} color="#633806" />
-                            <Text style={styles.offlineBannerText}>
-                                Offline-Modus: Wetterdaten werden nur mit aktiver Internetverbindung
-                                aktualisiert. Alle anderen Funktionen sind vollständig verfügbar.
-                            </Text>
-                        </View>
                         <TouchableOpacity
                             onPress={loadWeather}
                             style={{ marginTop: 12, backgroundColor: '#185FA5', borderRadius: 10, padding: 12, alignItems: 'center' }}
@@ -296,9 +289,6 @@ export default function WetterScreen() {
                                 <Ionicons name={entry.icon} size={16} color="#444" />
                                 <Text style={styles.dayConditionText}>{entry.condition}</Text>
                             </View>
-                            <Text style={{ fontSize: 13, fontWeight: '500', color: entry.ratingColor }}>
-                                {entry.rating}
-                            </Text>
                         </View>
                     ))}
                 </View>

@@ -41,7 +41,7 @@ export default function TauchplatzScreen() {
     }
 
     return (
-        <SafeAreaView style={styles.safeArea}>
+        <View style={styles.safeArea}>
 
             {/* HEADER */}
             <View style={styles.header}>
@@ -63,7 +63,7 @@ export default function TauchplatzScreen() {
                             activeOpacity={0.7}
                         >
                             <View style={styles.lakeIcon}>
-                                <Ionicons name="water-outline" size={20} color="#185FA5" />
+                                <Ionicons name="pin-outline" size={20} color="#185FA5" />
                             </View>
                             <View style={styles.lakeInfo}>
                                 <Text style={styles.lakeName}>{lake.name}</Text>
@@ -93,6 +93,6 @@ export default function TauchplatzScreen() {
                 </TouchableOpacity>
             </View>
 
-        </SafeAreaView>
+        </View>
     );
 }

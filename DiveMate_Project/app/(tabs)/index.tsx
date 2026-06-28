@@ -46,7 +46,7 @@ export default function HomeScreen() {
                     <View style={styles.quickGrid}>
                         <TouchableOpacity style={styles.quickCard} onPress={() => router.push('/(tabs)/tauchplatz')}>
                             <View style={[styles.quickIcon, styles.quickIconBlue]}>
-                                <Ionicons name="pin-outline" size={22} color="#185FA5" />
+                                <Ionicons name="map-outline" size={22} color="#185FA5" />
                             </View>
                             <Text style={styles.quickLabel}>Tauchplatz</Text>
                         </TouchableOpacity>

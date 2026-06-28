@@ -37,7 +37,7 @@ export default function TabLayout() {
                 options={{
                     title: 'Tauchplätze',
                     tabBarIcon: ({ color, size }) => (
-                        <Ionicons name="pin-outline" size={size} color={color} />
+                        <Ionicons name="map-outline" size={size} color={color} />
                     ),
                 }}
             />

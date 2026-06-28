@@ -130,46 +130,39 @@ color: '#7B1515',
 },
 
 // Tagesübersicht
-dayRow: {
-flexDirection: 'row',
-justifyContent: 'space-between',
-alignItems: 'center',
-paddingVertical: 10,
-borderBottomWidth: 1,
-borderBottomColor: '#f5f5f5',
-},
-dayTime: {
-fontSize: 13,
-color: Colors.grey,
-width: 44,
-},
-dayCondition: {
-flexDirection: 'row',
-alignItems: 'center',
-gap: 5,
-flex: 1,
-fontSize: 13,
-color: Colors.textDark,
-},
-dayConditionText: {
-fontSize: 13,
-color: Colors.textDark,
-},
+    dayRow: {
+        flexDirection: 'row',
 
-// Offline Banner
-offlineBanner: {
-flexDirection: 'row',
-alignItems: 'center',
-gap: 8,
-backgroundColor: '#FFF3CD',
-borderWidth: 1,
-borderColor: '#FAC775',
-borderRadius: 10,
-padding: 12,
-},
-offlineBannerText: {
-fontSize: 13,
-color: '#633806',
-flex: 1,
-},
+        alignItems: 'center',
+        paddingVertical: 12,
+        paddingHorizontal: 4,
+        borderBottomWidth: 1,
+        borderBottomColor: '#f5f5f5',
+        gap: 8,
+    },
+    dayTime: {
+        fontSize: 13,
+        fontWeight: '500',
+        color: Colors.grey,
+        width: 48,
+        marginRight: 16,
+    },
+    dayCondition: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 8,
+        justifyContent: 'flex-end',
+    },
+    dayConditionText: {
+        justifyContent: 'flex-end',
+        fontSize: 13,
+        color: Colors.textDark,
+    },
+    dayRating: {
+        fontSize: 12,
+        fontWeight: '600',
+        textAlign: 'right',
+        minWidth: 80,
+    },
+
 });
