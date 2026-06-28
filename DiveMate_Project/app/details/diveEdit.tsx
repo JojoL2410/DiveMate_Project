@@ -16,15 +16,14 @@ export default function DiveEditScreen() {
     const { dives, updateDive } = useDives();
     const dive = dives.find((d) => d.id === id);
 
-    // ✅ Hooks IMMER zuerst – vor jedem return
     const [location, setLocation] = useState(dive?.location ?? '');
     const [depth, setDepth]       = useState(String(dive?.depth ?? ''));
     const [duration, setDuration] = useState(String(dive?.duration ?? ''));
     const [type, setType]         = useState(dive?.type ?? 'Freizeittauchen');
     const [stars, setStars]       = useState(dive?.stars ?? 0);
+    const [buddy, setBuddy] = useState(dive?.buddy ?? '');
     const [notes, setNotes]       = useState(dive?.notes ?? '');
 
-    // ✅ Early return NACH den Hooks
     if (!dive) {
         return (
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -43,6 +42,7 @@ export default function DiveEditScreen() {
             duration: parseInt(duration),
             type,
             stars,
+            buddy,
             notes,
         });
         router.back();
@@ -137,19 +137,30 @@ export default function DiveEditScreen() {
 ))}
     </View>
     </View>
-
+            {/* Buddy */}
+            <View style={styles.section}>
+                <Text style={styles.sectionLabel}>Tauch-Buddy</Text>
+                <TextInput
+                    style={styles.notesInput}
+                    placeholder="Dein Buddy"
+                    placeholderTextColor="#bbb"
+                    value={buddy}
+                    onChangeText={setBuddy}
+                    multiline
+                />
+            </View>
     {/* NOTIZEN */}
-    <View style={styles.section}>
-    <Text style={styles.sectionLabel}>Notizen</Text>
-        <TextInput
-    style={styles.notesInput}
-    placeholder="Besonderheiten, Sichtweite, Tier-Sichtungen…"
-    placeholderTextColor="#bbb"
-    value={notes}
-    onChangeText={setNotes}
-    multiline
-    />
-    </View>
+            <View style={styles.section}>
+                <Text style={styles.sectionLabel}>Notizen</Text>
+                <TextInput
+                    style={styles.notesInput}
+                    placeholder="Besonderheiten, Sichtweite, Tier-Sichtungen…"
+                    placeholderTextColor="#bbb"
+                    value={notes}
+                    onChangeText={setNotes}
+                    multiline
+                />
+            </View>
 
     </ScrollView>
 
