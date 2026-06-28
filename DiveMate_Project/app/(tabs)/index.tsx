@@ -43,6 +43,10 @@ export default function HomeScreen() {
                 {/* GRUPPE 1 – Willkommen + Schnellzugriff */}
                 <View style={styles.group}>
                     <Text style={styles.groupTitle}>Hallo Taucher!</Text>
+                    <Text style={styles.suggestionText}>
+                        Mit DiveMate entdeckst du neue Tauchplätze, verwaltest deine Ausrüstung, führst
+                        Buddy-Check-ins durch und hältst deine Tauchgänge ganz einfach im Logbuch fest.
+                    </Text>
                     <View style={styles.quickGrid}>
                         <TouchableOpacity style={styles.quickCard} onPress={() => router.push('/(tabs)/tauchplatz')}>
                             <View style={[styles.quickIcon, styles.quickIconBlue]}>
@@ -98,7 +102,7 @@ export default function HomeScreen() {
 
                 {/* GRUPPE 2 – Deine letzten Abenteuer */}
                 <View style={styles.group}>
-                    <Text style={styles.groupTitle}>Deine letzten Abenteuer</Text>
+                    <Text style={styles.sectionLabel}>Letzter Tauchgang:</Text>
                     {lastDive ? (
                         <View style={styles.lastDiveCard}>
                             <View style={styles.lastDiveLeft}>
