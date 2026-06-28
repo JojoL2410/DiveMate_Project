@@ -126,6 +126,7 @@ export const styles = StyleSheet.create({
     // Footer Button
     footer: {
         padding: 16,
+        paddingBottom: 35,
         borderTopWidth: 1,
         borderTopColor: '#f0f0f0',
         backgroundColor: Colors.white,

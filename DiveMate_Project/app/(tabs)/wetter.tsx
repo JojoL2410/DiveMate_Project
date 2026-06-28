@@ -303,17 +303,6 @@ export default function WetterScreen() {
                     ))}
                 </View>
 
-                {/* OFFLINE BANNER */}
-                <View style={styles.section}>
-                    <View style={styles.offlineBanner}>
-                        <Ionicons name="wifi" size={18} color="#633806" />
-                        <Text style={styles.offlineBannerText}>
-                            Offline-Modus: Wetterdaten werden nur mit aktiver Internetverbindung
-                            aktualisiert. Alle anderen Funktionen sind vollständig verfügbar.
-                        </Text>
-                    </View>
-                </View>
-
             </ScrollView>
         </View>
     );
