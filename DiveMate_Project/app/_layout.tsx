@@ -98,7 +98,7 @@ export default function RootLayout() {
                 <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
                 <Stack.Screen
                     name="modal"
-                    options={{ presentation: 'modal', title: 'Tauchgang erfassen' }}
+                    options={{ presentation: 'modal', headerShown: false }}
                 />
                 <Stack.Screen
                     name="details/diveDetails"

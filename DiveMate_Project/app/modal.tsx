@@ -45,10 +45,7 @@ export default function ModalScreen() {
 
     return (
         <View style={styles.safeArea}>
-            <KeyboardAvoidingView
-                style={{ flex: 1 }}
-                behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-            >
+            <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined} >
 
                 {/* HEADER */}
                 <View style={styles.header}>
