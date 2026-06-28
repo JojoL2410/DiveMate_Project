@@ -140,8 +140,6 @@ Die Wassertemperaturen basieren auf offiziellen Messdaten des [Hydrografischen D
 Die App verwendet die kostenlose [Open-Meteo API](https://open-meteo.com):
 
 - **Forecast API** – Lufttemperatur & Wind
-- **Marine API** – Wellenhöhe
-
 Kein API-Key erforderlich.
 
 ---
