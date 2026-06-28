@@ -16,6 +16,7 @@ export default function ModalScreen() {
     const [duration, setDuration]   = useState('');
     const [type, setType]           = useState('Freizeittauchen');
     const [stars, setStars]         = useState(0);
+    const [buddy, setBuddy]      = useState('');
     const [notes, setNotes]         = useState('');
 
     const isValid = location.trim() !== '' && depth !== '' && duration !== '';
@@ -35,6 +36,7 @@ export default function ModalScreen() {
             }),
             type,
             stars,
+            buddy,
             notes,
         });
 
@@ -134,6 +136,19 @@ export default function ModalScreen() {
                                 </TouchableOpacity>
                             ))}
                         </View>
+                    </View>
+
+                    {/* Buddy */}
+                    <View style={styles.section}>
+                        <Text style={styles.sectionLabel}>Tauch-Buddy</Text>
+                        <TextInput
+                            style={styles.notesInput}
+                            placeholder="Besonderheiten, Sichtweite, Tier-Sichtungen…"
+                            placeholderTextColor="#bbb"
+                            value={buddy}
+                            onChangeText={setBuddy}
+                            multiline
+                        />
                     </View>
 
                     {/* NOTIZEN */}

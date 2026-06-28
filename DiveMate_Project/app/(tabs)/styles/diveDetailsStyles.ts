@@ -48,9 +48,11 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
     },
     headerBtnDelete: {
+        padding: 8,
         backgroundColor: 'rgba(163, 45, 45, 0.25)',
     },
     headerBtnEdit: {
+        padding: 8,
         backgroundColor: 'rgba(255, 255, 255, 0.15)',
     },
 

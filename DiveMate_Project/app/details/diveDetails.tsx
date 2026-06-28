@@ -97,11 +97,7 @@ export default function DiveDetailScreen() {
         </View>
         </View>
 
-        <ScrollView
-    style={styles.scroll}
-    contentContainerStyle={styles.scrollContent}
-    showsVerticalScrollIndicator={false}
-        >
+        <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false} >
 
         {/* TAUCHTYP */}
         <View style={styles.section}>
@@ -126,16 +122,26 @@ export default function DiveDetailScreen() {
 ))}
     </View>
     </View>
-    <View style={styles.section}>
-    <Text style={styles.sectionLabel}>Notizen</Text>
-        <View style={styles.notesBox}>
-        {dive.notes && dive.notes.trim() !== '' ? (
-                <Text style={styles.notesText}>{dive.notes}</Text>
-            ) : (
-                <Text style={styles.notesEmpty}>Keine Notizen vorhanden</Text>
-)}
-    </View>
-    </View>
+            <View style={styles.section}>
+                <Text style={styles.sectionLabel}>Tauch-Buddy</Text>
+                <View style={styles.notesBox}>
+                    {dive.notes && dive.notes.trim() !== '' ? (
+                        <Text style={styles.notesText}>{dive.buddy}</Text>
+                    ) : (
+                        <Text style={styles.notesEmpty}>Keine Notizen vorhanden</Text>
+                    )}
+                </View>
+            </View>
+            <View style={styles.section}>
+                <Text style={styles.sectionLabel}>Notizen</Text>
+                <View style={styles.notesBox}>
+                    {dive.notes && dive.notes.trim() !== '' ? (
+                        <Text style={styles.notesText}>{dive.notes}</Text>
+                    ) : (
+                        <Text style={styles.notesEmpty}>Keine Notizen vorhanden</Text>
+                    )}
+                </View>
+            </View>
 
     </ScrollView>
     </View>

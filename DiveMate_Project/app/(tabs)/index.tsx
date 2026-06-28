@@ -35,11 +35,8 @@ export default function HomeScreen() {
 
                 {/* GRUPPE 1 – Willkommen + Schnellzugriff */}
                 <View style={styles.group}>
-                    <Text style={styles.groupTitle}>Willkommen bei DiveMate!</Text>
-                    <Text style={styles.welcomeText}>
-                        DiveMate unterstützt dich dabei, Tauchplätze zu entdecken, deine Ausrüstung zu verwalten,
-                        dein Buddy Check-in durchzuführen und deine Tauchgänge im Logbuch festzuhalten.
-                    </Text>
+                    <Text style={styles.groupTitle}>Hallo Taucher!</Text>
+
 
                     <View style={styles.quickGrid}>
                         <TouchableOpacity style={styles.quickCard} onPress={() => router.push('/(tabs)/tauchplatz')}>
