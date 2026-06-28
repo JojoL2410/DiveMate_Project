@@ -224,7 +224,7 @@ export default function WetterScreen() {
             {/* HEADER */}
             <View style={styles.header}>
                 <View style={styles.headerTop}>
-                    <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
+                    <TouchableOpacity style={styles.backButton} onPress={() => router.push('./tauchplatz')}>
                         <Ionicons name="chevron-back" size={24} color="white" />
                     </TouchableOpacity>
                     <Text style={styles.headerTitle}>{lake.name}</Text>
