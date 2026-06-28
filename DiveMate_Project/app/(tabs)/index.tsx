@@ -33,14 +33,9 @@ export default function HomeScreen() {
 
             <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>
 
-                {/* GRUPPE 1 – Willkommen + Schnellzugriff */}
-                <View style={styles.group}>
-                    <Text style={styles.groupTitle}>Willkommen bei DiveMate!</Text>
-                    <Text style={styles.welcomeText}>
-                        DiveMate unterstützt dich dabei, Tauchplätze zu entdecken, deine Ausrüstung zu verwalten,
-                        dein Buddy Check-in durchzuführen und deine Tauchgänge im Logbuch festzuhalten.
-                    </Text>
-
+                {/* BLOCK 1 – Willkommen + Schnellzugriff */}
+                <View style={styles.block}>
+                    <Text style={styles.blockTitle}>Willkommen bei DiveMate!</Text>
                     <View style={styles.quickGrid}>
                         <TouchableOpacity style={styles.quickCard} onPress={() => router.push('/(tabs)/tauchplatz')}>
                             <View style={[styles.quickIcon, styles.quickIconBlue]}>
@@ -72,12 +67,10 @@ export default function HomeScreen() {
                     </View>
                 </View>
 
-                {/* GRUPPE 2 – Deine letzten Abenteuer */}
-                <View style={styles.group}>
-                    <Text style={styles.groupTitle}>Deine letzten Abenteuer</Text>
-                    <Text style={styles.groupSubTitle}>
-                        Hier findest du deinen zuletzt erfassten Tauchgang mit den wichtigsten Informationen auf einen Blick
-                    </Text>
+
+                {/* BLOCK 2 – Deine letzten Abenteuer */}
+                <View style={styles.block}>
+                    <Text style={styles.blockTitle}>Dein letzter Tauchgang</Text>
                     {lastDive ? (
                         <View style={styles.lastDiveCard}>
                             <View style={styles.lastDiveLeft}>
@@ -104,13 +97,12 @@ export default function HomeScreen() {
                     )}
                 </View>
 
-                {/* GRUPPE 3 – Tauchplatz vorschlagen */}
-                <View style={[styles.group, styles.groupLast]}>
-                    <Text style={styles.groupTitle}>Dein Tauchplatz fehlt?</Text>
+                {/* BLOCK 3 – Tauchplatz vorschlagen */}
+                <View style={styles.blockLast}>
+                    <Text style={styles.blockTitle}>Ein Tauchplatz fehlt?</Text>
                     <Text style={styles.suggestionText}>
                         Kennst du einen besonderen Tauchplatz, der noch nicht in DiveMate vorhanden ist?
-                        Dann schreib uns eine Nachricht. Wir prüfen deinen Vorschlag und nehmen ihn bei
-                        passenden Informationen gerne in DiveMate auf.
+                        Dann schreib uns eine Nachricht. Wir prüfen deinen Vorschlag und nehmen ihn gerne in DiveMate auf.
                     </Text>
                     <TouchableOpacity
                         style={styles.suggestionMailRow}
