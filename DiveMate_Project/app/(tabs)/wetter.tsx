@@ -1,6 +1,6 @@
 // app/(tabs)/wetter.tsx
 import { useEffect, useState } from 'react';
-import { View, Text, ScrollView, SafeAreaView, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
 import { getCurrentTemp } from '../../constants/lakes';
@@ -209,7 +209,7 @@ export default function WetterScreen() {
         // ─── Ladezustand ────────────────────────────────────────────────────────
         if (loading) {
             return (
-                <SafeAreaView style={styles.safeArea}>
+                <View style={styles.safeArea}>
                     <View style={styles.header}>
                         <View style={styles.headerTop}>
                             <Text style={styles.headerTitle}>Wetter</Text>
@@ -225,14 +225,14 @@ export default function WetterScreen() {
                             Wetterdaten werden geladen …
                         </Text>
                     </View>
-                </SafeAreaView>
+                </View>
             );
         }
 
         // ─── Offline-Modus ──────────────────────────────────────────────────────
         if (offline || !weather) {
             return (
-                <SafeAreaView style={styles.safeArea}>
+                <View style={styles.safeArea}>
                     <View style={styles.header}>
                         <View style={styles.headerTop}>
                             <Text style={styles.headerTitle}>Wetter</Text>
@@ -265,14 +265,14 @@ export default function WetterScreen() {
                             </TouchableOpacity>
                         </View>
                     </ScrollView>
-                </SafeAreaView>
+                </View>
             );
         }
 
         // ─── Fehler (z.B. GPS verweigert) ───────────────────────────────────────
         if (error) {
             return (
-                <SafeAreaView style={styles.safeArea}>
+                <View style={styles.safeArea}>
                     <View style={styles.header}>
                         <View style={styles.headerTop}>
                             <Text style={styles.headerTitle}>Wetter</Text>
@@ -287,7 +287,7 @@ export default function WetterScreen() {
                             <Text style={{color: '#185FA5', fontWeight: '600'}}>Erneut versuchen</Text>
                         </TouchableOpacity>
                     </View>
-                </SafeAreaView>
+                </View>
             );
         }
 
@@ -302,7 +302,7 @@ export default function WetterScreen() {
 
         // ─── UI ──────────────────────────────────────────────────────────────────
         return (
-            <SafeAreaView style={styles.safeArea}>
+            <View style={styles.safeArea}>
 
                 {/* HEADER */}
                 <View style={styles.header}>
@@ -409,7 +409,7 @@ export default function WetterScreen() {
                     </View>
 
                 </ScrollView>
-            </SafeAreaView>
+            </View>
         );
     }
 }

@@ -1,5 +1,5 @@
 // app/(tabs)/logbuch.tsx
-import { View, Text, ScrollView, TouchableOpacity, SafeAreaView } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { styles } from './styles/logbuchStyles';
@@ -10,7 +10,7 @@ export default function LogbuchScreen() {
     const { dives } = useDives();
 
     return (
-        <SafeAreaView style={styles.safeArea}>
+        <View style={styles.safeArea}>
 
             {/* HEADER */}
             <ScreenHeader
@@ -81,6 +81,6 @@ export default function LogbuchScreen() {
 
                 </View>
             </ScrollView>
-        </SafeAreaView>
+        </View>
     );
 }

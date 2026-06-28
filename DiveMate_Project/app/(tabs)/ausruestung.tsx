@@ -1,5 +1,5 @@
 // app/(tabs)/ausruestung.tsx
-import { View, Text, ScrollView, TouchableOpacity, SafeAreaView } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
 import { styles } from './styles/ausruestungStyles';
@@ -38,7 +38,7 @@ export default function AusruestungScreen() {
     const progress = doneCount / total;
 
     return (
-        <SafeAreaView style={styles.safeArea}>
+        <View style={styles.safeArea}>
 
             {/* HEADER */}
             <ScreenHeader
@@ -80,6 +80,6 @@ export default function AusruestungScreen() {
 
                 </View>
             </ScrollView>
-        </SafeAreaView>
+        </View>
     );
 }

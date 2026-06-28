@@ -1,14 +1,5 @@
 // app/modal.tsx
-import {
-    View,
-    Text,
-    TextInput,
-    ScrollView,
-    TouchableOpacity,
-    SafeAreaView,
-    KeyboardAvoidingView,
-    Platform,
-} from 'react-native';
+import { View, Text, TextInput, ScrollView, TouchableOpacity, KeyboardAvoidingView, Platform} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
 import { router } from 'expo-router';
@@ -51,7 +42,7 @@ export default function ModalScreen() {
     };
 
     return (
-        <SafeAreaView style={styles.safeArea}>
+        <View style={styles.safeArea}>
             <KeyboardAvoidingView
                 style={{ flex: 1 }}
                 behavior={Platform.OS === 'ios' ? 'padding' : undefined}
@@ -174,6 +165,6 @@ export default function ModalScreen() {
                 </View>
 
             </KeyboardAvoidingView>
-        </SafeAreaView>
+        </View>
     );
 }

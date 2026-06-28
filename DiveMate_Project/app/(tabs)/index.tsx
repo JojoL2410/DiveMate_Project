@@ -1,5 +1,5 @@
 // app/(tabs)/index.tsx
-import { View, Text, ScrollView, TouchableOpacity, SafeAreaView } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { useDives } from '../_layout';
@@ -10,7 +10,7 @@ export default function HomeScreen() {
     const lastDive = dives[0];
 
     return (
-        <SafeAreaView style={styles.safeArea}>
+        <View style={styles.safeArea}>
 
             {/* HEADER */}
             <View style={styles.header}>
@@ -124,6 +124,6 @@ export default function HomeScreen() {
                 )}
 
             </ScrollView>
-        </SafeAreaView>
+        </View>
     );
 }

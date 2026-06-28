@@ -18,18 +18,18 @@ export default function DiveDetailScreen() {
 
     if (!dive) {
         return (
-            <SafeAreaView style={styles.notFound}>
+            <View style={styles.notFound}>
             <Ionicons name="alert-circle-outline" size={48} color="#ddd" />
         <Text style={styles.notFoundText}>Tauchgang nicht gefunden</Text>
         <TouchableOpacity onPress={() => router.back()}>
         <Text style={{ color: '#185FA5', fontSize: 14 }}>Zurück</Text>
         </TouchableOpacity>
-        </SafeAreaView>
+        </View>
     );
     }
 
     return (
-        <SafeAreaView style={styles.safeArea}>
+        <View style={styles.safeArea}>
 
             {/* HEADER */}
             <View style={styles.header}>
@@ -115,6 +115,6 @@ export default function DiveDetailScreen() {
     </View>
 
     </ScrollView>
-    </SafeAreaView>
+    </View>
 );
 }

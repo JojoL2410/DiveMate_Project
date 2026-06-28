@@ -1,5 +1,5 @@
 // app/(tabs)/buddy.tsx
-import { View, Text, ScrollView, TouchableOpacity, SafeAreaView } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
 import { styles } from './styles/buddyStyles';
@@ -65,7 +65,7 @@ export default function BuddyScreen() {
     const progress = doneCount / total;
 
     return (
-        <SafeAreaView style={styles.safeArea}>
+        <View style={styles.safeArea}>
 
             {/* HEADER */}
             <ScreenHeader
@@ -113,6 +113,6 @@ export default function BuddyScreen() {
 
                 </View>
             </ScrollView>
-        </SafeAreaView>
+        </View>
     );
 }
