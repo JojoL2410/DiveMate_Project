@@ -68,18 +68,21 @@ export default function LogbuchScreen() {
                         </TouchableOpacity>
                     ))}
 
-                    {/* BUTTON */}
-                    <TouchableOpacity
-                        style={styles.addButton}
-                        onPress={() => router.push('/modal')}
-                        activeOpacity={0.8}
-                    >
-                        <Ionicons name="add" size={18} color="white" />
-                        <Text style={styles.addButtonText}>Tauchgang erfassen</Text>
-                    </TouchableOpacity>
+
 
                 </View>
             </ScrollView>
+            {/* BUTTON */}
+            <View style={styles.buttonContainer}>
+            <TouchableOpacity
+                style={styles.addButton}
+                onPress={() => router.push('/modal')}
+                activeOpacity={0.8}
+            >
+                <Ionicons name="add" size={18} color="white" />
+                <Text style={styles.addButtonText}>Tauchgang erfassen</Text>
+            </TouchableOpacity>
+            </View>
         </View>
     );
 }

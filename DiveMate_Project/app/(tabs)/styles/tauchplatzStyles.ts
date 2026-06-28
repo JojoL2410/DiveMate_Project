@@ -87,7 +87,7 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         gap: 8,
-        backgroundColor: Colors.oceanMid,
+        backgroundColor: Colors.oceanDeep,
         borderRadius: 12,
         padding: 14,
     },
