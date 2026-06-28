@@ -143,7 +143,7 @@ export default function ModalScreen() {
                         <Text style={styles.sectionLabel}>Tauch-Buddy</Text>
                         <TextInput
                             style={styles.notesInput}
-                            placeholder="Besonderheiten, Sichtweite, Tier-Sichtungen…"
+                            placeholder="Dein Buddy"
                             placeholderTextColor="#bbb"
                             value={buddy}
                             onChangeText={setBuddy}

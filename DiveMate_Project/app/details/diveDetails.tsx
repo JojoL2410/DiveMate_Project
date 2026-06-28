@@ -125,7 +125,7 @@ export default function DiveDetailScreen() {
             <View style={styles.section}>
                 <Text style={styles.sectionLabel}>Tauch-Buddy</Text>
                 <View style={styles.notesBox}>
-                    {dive.notes && dive.notes.trim() !== '' ? (
+                    {dive.buddy && dive.buddy.trim() !== '' ? (
                         <Text style={styles.notesText}>{dive.buddy}</Text>
                     ) : (
                         <Text style={styles.notesEmpty}>Keine Notizen vorhanden</Text>

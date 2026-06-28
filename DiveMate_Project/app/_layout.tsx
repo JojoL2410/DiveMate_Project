@@ -10,6 +10,7 @@ export type Dive = {
     date: string;
     type: string;
     stars: number;
+    buddy?: string,
     notes?: string;
 };
 
