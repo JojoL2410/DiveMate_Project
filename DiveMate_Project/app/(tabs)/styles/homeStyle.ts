@@ -57,54 +57,55 @@ backgroundColor: 'rgba(255,255,255,0.12)',
     // Scroll
     scroll: {
         flex: 1,
+        backgroundColor: '#F2F4F7',  // grauer Hintergrund zwischen Gruppen
+    },
+
+    // ─── GRUPPEN-KARTEN ────────────────────────────────────────────────────────
+    // Jede Gruppe ist eine weiße Karte mit Abstand nach unten
+    group: {
         backgroundColor: Colors.white,
+        marginHorizontal: 14,
+        marginTop: 14,
+        borderRadius: 16,
+        padding: 16,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.06,
+        shadowRadius: 4,
+        elevation: 2,
+    },
+    groupLast: {
+        marginBottom: 24,  // extra Abstand unten für die letzte Gruppe
     },
 
-    // Jeder Block hat oben/unten Padding, Trennlinie nur zwischen Blöcken
-    block: {
-        paddingHorizontal: 16,
-        paddingTop: 20,
-        paddingBottom: 20,
-    },
-    blockDivider: {
-        height: 1,
-        backgroundColor: '#EBEBEB',
-        marginHorizontal: 16,
-    },
-    blockLast: {
-        paddingHorizontal: 16,
-        paddingTop: 20,
-        paddingBottom: 32,
-    },
-
-    // Block-Überschrift – groß und dunkel, gut sichtbar
-    blockTitle: {
-        fontSize: 18,
+    // Gruppen-Überschrift – groß und dunkel
+    groupTitle: {
+        fontSize: 17,
         fontWeight: '700',
         color: Colors.oceanDeep,
         marginBottom: 4,
     },
-    blockSubText: {
+    groupSubTitle: {
         fontSize: 13,
         color: '#666',
         lineHeight: 19,
         marginBottom: 14,
     },
 
-    // Willkommen
+    // ─── WILLKOMMEN ────────────────────────────────────────────────────────────
     welcomeText: {
         fontSize: 14,
         color: '#555',
         lineHeight: 21,
         marginTop: 6,
-        marginBottom: 16,
     },
 
-    // Quick Actions
+    // ─── QUICK ACTIONS ─────────────────────────────────────────────────────────
     quickGrid: {
         flexDirection: 'row',
         flexWrap: 'wrap',
         gap: 10,
+        marginTop: 4,
     },
     quickCard: {
         width: '47%',
@@ -137,7 +138,7 @@ backgroundColor: 'rgba(255,255,255,0.12)',
         marginTop: 2,
     },
 
-    // Letzter Tauchgang
+    // ─── LETZTER TAUCHGANG ─────────────────────────────────────────────────────
     lastDiveCard: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -188,7 +189,7 @@ backgroundColor: 'rgba(255,255,255,0.12)',
         textAlign: 'center',
     },
 
-    // Tauchplatz Vorschlag
+    // ─── TAUCHPLATZ VORSCHLAG ──────────────────────────────────────────────────
     suggestionText: {
         fontSize: 13,
         color: '#555',
@@ -207,11 +208,61 @@ backgroundColor: 'rgba(255,255,255,0.12)',
         color: '#185FA5',
     },
 
-    // Legacy
-    section: { padding: 14, borderBottomWidth: 1, borderBottomColor: '#f0f0f0' },
-    sectionLabel: { fontSize: 11, fontWeight: '600', textTransform: 'uppercase', letterSpacing: 0.8, color: Colors.grey, marginBottom: 6 },
-    sectionSubLabel: { fontSize: 13, color: Colors.grey, marginBottom: 10, lineHeight: 18 },
-    welcomeTitle: { fontSize: 18, fontWeight: '700', color: Colors.oceanDeep, marginBottom: 6 },
+    // Legacy – wird nicht mehr verwendet aber schadet nicht
+    section: {
+        padding: 14,
+        borderBottomWidth: 1,
+        borderBottomColor: '#f0f0f0',
+    },
+    sectionLabel: {
+        fontSize: 11,
+        fontWeight: '600',
+        textTransform: 'uppercase',
+        letterSpacing: 0.8,
+        color: Colors.grey,
+        marginBottom: 6,
+    },
+    sectionSubLabel: {
+        fontSize: 13,
+        color: Colors.grey,
+        marginBottom: 10,
+        lineHeight: 18,
+    },
+    welcomeTitle: {
+        fontSize: 18,
+        fontWeight: '700',
+        color: Colors.oceanDeep,
+        marginBottom: 6,
+    },
+
+    statsGrid: {
+        flexDirection: 'row',
+        gap: 10,
+    },
+    statCard: {
+        flex: 1,
+        backgroundColor: Colors.oceanLight,
+        borderRadius: 12,
+        padding: 12,
+        alignItems: 'center',
+        gap: 4,
+    },
+    statValue: {
+        fontSize: 20,
+        fontWeight: '700',
+        color: Colors.oceanDeep,
+    },
+    statUnit: {
+        fontSize: 12,
+        fontWeight: '400',
+        color: Colors.oceanMid,
+    },
+    statLabel: {
+        fontSize: 11,
+        color: Colors.grey,
+        textAlign: 'center',
+    },
+
     nextDiveCard: { backgroundColor: Colors.oceanLight, borderRadius: 12, padding: 14, gap: 6 },
     nextDiveTop: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 },
     nextDiveLocation: { fontSize: 17, fontWeight: '700', color: Colors.oceanDeep },
@@ -220,8 +271,4 @@ backgroundColor: 'rgba(255,255,255,0.12)',
     nextDiveRow: { flexDirection: 'row', alignItems: 'center', gap: 6 },
     nextDiveInfo: { fontSize: 13, color: '#444' },
     suggestionCard: { backgroundColor: Colors.oceanLight, borderRadius: 12, padding: 14, gap: 10 },
-    group: { padding: 16 },
-    groupLast: { padding: 16 },
-    groupTitle: { fontSize: 17, fontWeight: '700', color: Colors.oceanDeep, marginBottom: 4 },
-    groupSubTitle: { fontSize: 13, color: '#666', lineHeight: 19, marginBottom: 14 },
 });

@@ -7,6 +7,13 @@ import { styles } from '../(tabs)/styles/homeStyle';
 export default function HomeScreen() {
     const { dives } = useDives();
     const lastDive = dives[0];
+    const avgDepth = dives.length > 0
+        ? Math.round(dives.reduce((sum, d) => sum + d.depth, 0) / dives.length)
+        : 0;
+
+    const avgDuration = dives.length > 0
+        ? Math.round(dives.reduce((sum, d) => sum + d.duration, 0) / dives.length)
+        : 0;
 
     return (
         <View style={styles.safeArea}>
@@ -33,9 +40,11 @@ export default function HomeScreen() {
 
             <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>
 
-                {/* BLOCK 1 – Willkommen + Schnellzugriff */}
-                <View style={styles.block}>
-                    <Text style={styles.blockTitle}>Willkommen bei DiveMate!</Text>
+                {/* GRUPPE 1 – Willkommen + Schnellzugriff */}
+                <View style={styles.group}>
+                    <Text style={styles.groupTitle}>Hallo Taucher!</Text>
+
+
                     <View style={styles.quickGrid}>
                         <TouchableOpacity style={styles.quickCard} onPress={() => router.push('/(tabs)/tauchplatz')}>
                             <View style={[styles.quickIcon, styles.quickIconBlue]}>
@@ -66,11 +75,34 @@ export default function HomeScreen() {
                         </TouchableOpacity>
                     </View>
                 </View>
+                {/* STATISTIKEN */}
+                <View style={styles.section}>
+                    <Text style={styles.sectionLabel}>Meine Statistiken</Text>
+                    <View style={styles.statsGrid}>
 
+                        <View style={styles.statCard}>
+                            <Ionicons name="layers-outline" size={20} color="#185FA5" />
+                            <Text style={styles.statValue}>{dives.length}</Text>
+                            <Text style={styles.statLabel}>Tauchgänge</Text>
+                        </View>
 
-                {/* BLOCK 2 – Deine letzten Abenteuer */}
-                <View style={styles.block}>
-                    <Text style={styles.blockTitle}>Dein letzter Tauchgang</Text>
+                        <View style={styles.statCard}>
+                            <Ionicons name="arrow-down-outline" size={20} color="#185FA5" />
+                            <Text style={styles.statValue}>{avgDepth}<Text style={styles.statUnit}> m</Text></Text>
+                            <Text style={styles.statLabel}>Ø Tiefe</Text>
+                        </View>
+
+                        <View style={styles.statCard}>
+                            <Ionicons name="time-outline" size={20} color="#185FA5" />
+                            <Text style={styles.statValue}>{avgDuration}<Text style={styles.statUnit}> min</Text></Text>
+                            <Text style={styles.statLabel}>Ø Dauer</Text>
+                        </View>
+
+                    </View>
+                </View>
+                {/* GRUPPE 2 – Deine letzten Abenteuer */}
+                <View style={styles.group}>
+                    <Text style={styles.groupTitle}>Deine letzten Abenteuer</Text>
                     {lastDive ? (
                         <View style={styles.lastDiveCard}>
                             <View style={styles.lastDiveLeft}>
@@ -97,12 +129,13 @@ export default function HomeScreen() {
                     )}
                 </View>
 
-                {/* BLOCK 3 – Tauchplatz vorschlagen */}
-                <View style={styles.blockLast}>
-                    <Text style={styles.blockTitle}>Ein Tauchplatz fehlt?</Text>
+                {/* GRUPPE 3 – Tauchplatz vorschlagen */}
+                <View style={[styles.group, styles.groupLast]}>
+                    <Text style={styles.groupTitle}>Dein Tauchplatz fehlt?</Text>
                     <Text style={styles.suggestionText}>
                         Kennst du einen besonderen Tauchplatz, der noch nicht in DiveMate vorhanden ist?
-                        Dann schreib uns eine Nachricht. Wir prüfen deinen Vorschlag und nehmen ihn gerne in DiveMate auf.
+                        Dann schreib uns eine Nachricht. Wir prüfen deinen Vorschlag und nehmen ihn bei
+                        passenden Informationen gerne in DiveMate auf.
                     </Text>
                     <TouchableOpacity
                         style={styles.suggestionMailRow}
