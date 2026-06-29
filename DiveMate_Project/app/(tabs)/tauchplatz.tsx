@@ -77,7 +77,7 @@ export default function TauchplatzScreen() {
             }
             
 
-            if (minDistance > 200000) {
+            if (minDistance > 20000) {
                 nearest = null;
             }
 

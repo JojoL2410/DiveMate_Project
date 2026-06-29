@@ -15,7 +15,7 @@ export type Lake = {
 };
 
 // Maximale Entfernung für GPS-Suche
-const MAX_DISTANCE_METERS = 20000_000; // 20 km Radius
+const MAX_DISTANCE_METERS = 20_000; // 20 km Radius
 
 /**
 * Sucht den nächsten See per geolib
