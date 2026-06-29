@@ -31,7 +31,7 @@ cd diveMate_Project
 
 ```bash
 npm install
-npx expo install expo-location geolib
+npx expo install expo-location geolib firebase
 ```
 
 > `npx expo install` wird empfohlen, damit Expo automatisch die zur SDK-Version passenden Paketversionen wählt.
