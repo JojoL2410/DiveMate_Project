@@ -6,10 +6,14 @@ import { useDives } from '../_layout';
 import { styles } from '../(tabs)/styles/diveDetailsStyles';
 
 export default function DiveDetailScreen() {
+    // Holt die ID des Tauchgangs aus der Navigation
     const { id } = useLocalSearchParams<{ id: string }>();
+    // Holt Tauchgaenge & Löschfunktion aus Context
     const { dives, deleteDive, updateDive } = useDives();
+    //Sucht Tauchgang nach übergebenen ID
     const dive = dives.find((d) => d.id === id);
 
+    //Nichts gefunden
     if (!dive) {
         return (
             <View style={styles.notFound}>
@@ -21,16 +25,17 @@ export default function DiveDetailScreen() {
         </View>
     );
     }
+    // Fragt vor Löschen sicherheitshalber nach
     const handleDelete = () => {
         Alert.alert(
             'Tauchgang löschen',
             `Möchtest du "${dive?.location}" wirklich löschen?`,
             [
-                { text: 'Abbrechen', style: 'cancel' },
+                { text: 'Abbrechen', style: 'cancel' }, //Abbrechen
                 {
                     text: 'Löschen',
                     style: 'destructive',
-                    onPress: async () => {
+                    onPress: async () => { //Löschen aus Firebase
                         try {
                             await deleteDive(id);
                             router.back();
@@ -47,7 +52,7 @@ export default function DiveDetailScreen() {
     };
     return (
         <View style={styles.safeArea}>
-            {/* HEADER */}
+            {/* Kopfbereich mit Zurück-, Bearbeiten- und Löschen-Button */}
             <View style={styles.header}>
                 <View style={styles.headerTop}>
                     <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
@@ -77,6 +82,7 @@ export default function DiveDetailScreen() {
                 <Text style={styles.headerDate}>{dive.date}</Text>
             </View>
 
+    {/* Kurze Zusammenfassung: Tiefe, Dauer und Bewertung */}
     <View style={styles.statsRow}>
     <View style={styles.statCard}>
     <Ionicons name="arrow-down-outline" size={20} color="#185FA5" />
@@ -106,7 +112,7 @@ export default function DiveDetailScreen() {
 
         <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false} >
 
-        {/* TAUCHTYP */}
+    {/* Zeigt den Tauchtyp des Tauchgangs */}
         <View style={styles.section}>
     <Text style={styles.sectionLabel}>Tauchtyp</Text>
         <View style={styles.typeBadge}>
@@ -115,7 +121,7 @@ export default function DiveDetailScreen() {
         </View>
         </View>
 
-    {/* BEWERTUNG */}
+    {/* Zeigt die Bewertung als Sterne */}
     <View style={styles.section}>
     <Text style={styles.sectionLabel}>Bewertung</Text>
         <View style={styles.starsRow}>
@@ -129,6 +135,7 @@ export default function DiveDetailScreen() {
 ))}
     </View>
     </View>
+            {/* Zeigt den Tauch-Buddy, falls einer eingetragen wurde */}
             <View style={styles.section}>
                 <Text style={styles.sectionLabel}>Tauch-Buddy</Text>
                 <View style={styles.notesBox}>
@@ -139,6 +146,7 @@ export default function DiveDetailScreen() {
                     )}
                 </View>
             </View>
+            {/* Zeigt die Notizen, falls welche eingetragen wurden */}
             <View style={styles.section}>
                 <Text style={styles.sectionLabel}>Notizen</Text>
                 <View style={styles.notesBox}>

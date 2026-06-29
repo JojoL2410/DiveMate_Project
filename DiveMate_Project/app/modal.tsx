@@ -8,11 +8,16 @@ import { styles } from './(tabs)/styles/modalStyles';
 import { doc, setDoc } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
 
+// Auswahlmöglichkeiten fuer den Tauchtyp
 const DIVE_TYPES = ['Freizeittauchen', 'Fotografie', 'Ausbildung', 'Technisch', 'Nachttauchen'];
 
+// Formular zum Erfassen eines neuen Tauchgangs
 export default function ModalScreen() {
+    // addDive aus Logbuch-Context
+    // Neuer Tauchgang nach Speichern sofort angezeigt
     const { addDive } = useDives();
 
+    // Speichert Eingaben des Formulars, solange Screen geöffnet ist
     const [location, setLocation]   = useState('');
     const [depth, setDepth]         = useState('');
     const [duration, setDuration]   = useState('');
@@ -21,11 +26,16 @@ export default function ModalScreen() {
     const [buddy, setBuddy]      = useState('');
     const [notes, setNotes]         = useState('');
 
+    // Ort, Tiefe & Dauer -> Pflichtfelder.
+    // Diese Felder ausgefüllt -> kann gespeichert werden
     const isValid = location.trim() !== '' && depth !== '' && duration !== '';
 
+    // Speichern-Button gedrückt
     const handleSave = async () => {
+        // Pflichtfelder fehlen -> nicht gespeichert
         if (!isValid) return;
 
+        // Erstellt aus Formularwerten neues Tauchgang-Objekt
         const newDive = {
             id: Date.now().toString(),
             location: location.trim(),
@@ -44,8 +54,10 @@ export default function ModalScreen() {
         };
 
         try {
+            //Speichert neuen Tauchgang in Firebase
             await setDoc(doc(db, 'dives', newDive.id), newDive);
 
+            //Tauchgang lokal angezeigt & Formular geschlossen
             addDive(newDive);
             router.back();
         } catch {
@@ -60,7 +72,7 @@ export default function ModalScreen() {
         <View style={styles.safeArea}>
             <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined} >
 
-                {/* HEADER */}
+                {/* Kopfbereich mit Titel und Schliessen-Button */}
                 <View style={styles.header}>
                     <View style={styles.headerTop}>
                         <Text style={styles.headerTitle}>Tauchgang erfassen</Text>
@@ -72,7 +84,7 @@ export default function ModalScreen() {
 
                 <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>
 
-                    {/* ORT & DATEN */}
+                    {/* Eingabefelder fuer Ort, Tiefe und Dauer */}
                     <View style={styles.section}>
                         <Text style={styles.sectionLabel}>Tauchgang</Text>
 
@@ -113,7 +125,7 @@ export default function ModalScreen() {
                         </View>
                     </View>
 
-                    {/* TAUCHTYP */}
+                    {/* Auswahl des Tauchtyps */}
                     <View style={styles.section}>
                         <Text style={styles.sectionLabel}>Tauchtyp</Text>
                         <View style={styles.typeGrid}>
@@ -132,7 +144,7 @@ export default function ModalScreen() {
                         </View>
                     </View>
 
-                    {/* BEWERTUNG */}
+                    {/* Bewertung mit 1 bis 5 Sternen */}
                     <View style={styles.section}>
                         <Text style={styles.sectionLabel}>Bewertung</Text>
                         <View style={styles.starsRow}>
@@ -148,7 +160,7 @@ export default function ModalScreen() {
                         </View>
                     </View>
 
-                    {/* Buddy */}
+                    {/* Eingabefeld für den Tauch-Buddy */}
                     <View style={styles.section}>
                         <Text style={styles.sectionLabel}>Tauch-Buddy</Text>
                         <TextInput
@@ -161,7 +173,7 @@ export default function ModalScreen() {
                         />
                     </View>
 
-                    {/* NOTIZEN */}
+                    {/* Eingabefeld fuer zusätzliche Notizen */}
                     <View style={styles.section}>
                         <Text style={styles.sectionLabel}>Notizen</Text>
                         <TextInput
@@ -176,7 +188,7 @@ export default function ModalScreen() {
 
                 </ScrollView>
 
-                {/* FOOTER */}
+                {/* Speichern-Button am unteren Bildschirmrand */}
                 <View style={styles.footer}>
                     <TouchableOpacity
                         style={[styles.saveButton, !isValid && styles.saveButtonDisabled]}

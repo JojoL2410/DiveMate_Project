@@ -6,13 +6,19 @@ import { router, useLocalSearchParams } from 'expo-router';
 import { useDives } from '../_layout';
 import { styles } from '../(tabs)/styles/modalStyles';
 
+// Kategorien, die beim Bearbeiten eines Tauchgangs ausgewählt werden können
 const DIVE_TYPES = ['Freizeittauchen', 'Fotografie', 'Ausbildung', 'Technisch', 'Nachttauchen'];
 
+// Wird verwendet, bestehenden Tauchgang zu bearbeiten
 export default function DiveEditScreen() {
+    // Holt ID des Tauchgangs aus der Navigation -> für Bearbeitung
     const { id } = useLocalSearchParams<{ id: string }>();
+    // Holt gespeicherte Tauchgänge & Bearbeitungsfunktion aus Context
     const { dives, updateDive } = useDives();
+    // Sucht Tauchgang, dessen ID zur übergebenen ID passt
     const dive = dives.find((d) => d.id === id);
 
+    //Bestehende Werte des Tauchgangs werden in Formular geladen
     const [location, setLocation] = useState(dive?.location ?? '');
     const [depth, setDepth]       = useState(String(dive?.depth ?? ''));
     const [duration, setDuration] = useState(String(dive?.duration ?? ''));
@@ -21,6 +27,7 @@ export default function DiveEditScreen() {
     const [buddy, setBuddy] = useState(dive?.buddy ?? '');
     const [notes, setNotes]       = useState(dive?.notes ?? '');
 
+    // Falls kein passender Tauchgang -> Fehlermeldung
     if (!dive) {
         return (
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -28,12 +35,17 @@ export default function DiveEditScreen() {
             </View>
         );
     }
+    // Prüft, ob wichtigsten Pflichtfelder ausgefüllt sind
     const isValid = location.trim() !== '' && depth !== '' && duration !== '';
 
+    // Speichert geänderten Werte -> zuerst Firebase aktualisiert, dann lokale Anzeige
     const handleSave = async () => {
+        // Pflichtfelder fehlen -> nicht gespeichert
         if (!isValid) return;
 
         try {
+            // Übergibt neuen Werte an updateDive
+            // Die Funktion kümmert sich um Firebase und den lokalen Zustand
             await updateDive({
                 ...dive,
                 location: location.trim(),
@@ -45,6 +57,7 @@ export default function DiveEditScreen() {
                 notes,
             });
 
+            // Erfolgreiches Speichern -> App zurück zur vorherigen Seite
             router.back();
         } catch {
             Alert.alert(
@@ -61,7 +74,7 @@ export default function DiveEditScreen() {
             style={{ flex: 1 }}
     behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         >
-        {/* HEADER */}
+        {/* HEADER mit Titel und Schließen-Button */}
         <View style={styles.header}>
     <View style={styles.headerTop}>
     <Text style={styles.headerTitle}>Tauchgang bearbeiten</Text>
@@ -73,7 +86,7 @@ export default function DiveEditScreen() {
 
         <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>
 
-        {/* ORT & DATEN */}
+        {/* Eingabefelder für Ort, Tiefe und Dauer */}
         <View style={styles.section}>
     <Text style={styles.sectionLabel}>Tauchgang</Text>
         <View style={styles.inputRow}>
@@ -110,7 +123,7 @@ export default function DiveEditScreen() {
         </View>
         </View>
 
-    {/* TAUCHTYP */}
+    {/* Auswahl des Tauchtyps */}
     <View style={styles.section}>
     <Text style={styles.sectionLabel}>Tauchtyp</Text>
         <View style={styles.typeGrid}>
@@ -129,7 +142,7 @@ export default function DiveEditScreen() {
     </View>
     </View>
 
-    {/* BEWERTUNG */}
+    {/* Bewertung mit 1 bis 5 Sternen */}
     <View style={styles.section}>
     <Text style={styles.sectionLabel}>Bewertung</Text>
         <View style={styles.starsRow}>
@@ -144,7 +157,7 @@ export default function DiveEditScreen() {
 ))}
     </View>
     </View>
-            {/* Buddy */}
+            {/* Eingabefeld für den Tauch-Buddy */}
             <View style={styles.section}>
                 <Text style={styles.sectionLabel}>Tauch-Buddy</Text>
                 <TextInput
@@ -156,7 +169,7 @@ export default function DiveEditScreen() {
                     multiline
                 />
             </View>
-    {/* NOTIZEN */}
+    {/* Eingabefeld für zusätzliche Notizen */}
             <View style={styles.section}>
                 <Text style={styles.sectionLabel}>Notizen</Text>
                 <TextInput
@@ -171,12 +184,13 @@ export default function DiveEditScreen() {
 
     </ScrollView>
 
-    {/* FOOTER */}
+    {/* Speichern-Button am unteren Bildschirmrand */}
     <View style={styles.footer}>
     <TouchableOpacity
         style={[styles.saveButton, !isValid && styles.saveButtonDisabled]}
     onPress={handleSave}
     activeOpacity={0.8}
+    // Der Button deaktiviert, solange Pflichtfelder fehlen
     disabled={!isValid}
 >
     <Ionicons name="save-outline" size={18} color="white" />

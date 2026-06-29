@@ -53,8 +53,14 @@ export default function TauchplatzScreen() {
                 setGpsError('GPS-Berechtigung verweigert. Bitte in den Einstellungen freigeben.');
                 return;
             }
-            const loc = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced });
+            const loc = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.High });
             const { latitude, longitude } = loc.coords;
+
+            if (lakes.length === 0) {
+                setGpsError('Es wurden keine Tauchplätze aus Firebase geladen.');
+                return;
+            }
+
             let nearest: Lake | null = null;
             let minDistance = Infinity;
 
@@ -69,8 +75,9 @@ export default function TauchplatzScreen() {
                     nearest = lake;
                 }
             }
+            
 
-            if (minDistance > 20000) {
+            if (minDistance > 200000) {
                 nearest = null;
             }
 

@@ -1,13 +1,15 @@
-// app/(tabs)/wetter.tsx  ← ZWEITE Ansicht, bekommt lakeId als URL-Parameter
+// app/(tabs)/wetter.tsx
 import { useEffect, useState } from 'react';
 import { View, Text, ScrollView, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import {router, useLocalSearchParams, useRouter} from 'expo-router';
-import { LAKES, Lake, getCurrentTemp } from '../../constants/lakes';
+import { Lake, getCurrentTemp } from '../../constants/lakes';
 import { styles } from './styles/wetterStyles';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../../firebaseConfig';
 
-// ─── Typen ───────────────────────────────────────────────────────────────────
 
+// Beschreibt Wetterdaten, die auf Seite angezeigt werden
 type WeatherData = {
     airTemp: number;
     waterTemp: number;
@@ -16,29 +18,21 @@ type WeatherData = {
     dayEntries: DayEntry[];
 };
 
+// Beschreibt Eintrag in Tagesübersicht, z.B. 08:00
 type DayEntry = {
     time: string;
     icon: keyof typeof Ionicons.glyphMap;
     condition: string;
-    rating: string;
-    ratingColor: string;
 };
 
-// ─── Hilfsfunktionen ─────────────────────────────────────────────────────────
-
+// Hilfsfunktionen
+// Sucht aus Wetterdaten Wert für bestimmte Uhrzeit
 function getValueAtHour(times: string[], values: number[], targetHour: number): number {
     const idx = times.findIndex((t) => new Date(t).getHours() === targetHour);
     return idx !== -1 ? Math.round(values[idx] * 10) / 10 : 0;
 }
 
-function getDivingRating(airTemp: number, windSpeed: number): { rating: string; ratingColor: string } {
-    if (windSpeed > 30) return { rating: 'Nicht tauchen', ratingColor: '#A32D2D' };
-    if (windSpeed > 20) return { rating: 'Mäßig',         ratingColor: '#854F0B' };
-    if (airTemp < 8)    return { rating: 'Mäßig',         ratingColor: '#854F0B' };
-    if (airTemp < 14)   return { rating: 'Gut',            ratingColor: '#1D9E75' };
-    return                     { rating: 'Ideal',           ratingColor: '#185FA5' };
-}
-
+// Wählt passend zu Wind und Temperatur ein Wetter-Icon aus
 function getWeatherIcon(windSpeed: number, airTemp: number): keyof typeof Ionicons.glyphMap {
     if (windSpeed > 30) return 'thunderstorm-outline';
     if (windSpeed > 20) return 'rainy-outline';
@@ -47,10 +41,10 @@ function getWeatherIcon(windSpeed: number, airTemp: number): keyof typeof Ionico
     return 'sunny-outline';
 }
 
-// ─── Pill-Tauglichkeit ────────────────────────────────────────────────────────
-
+//Pill-Tauglichkeit
 type PillStatus = 'green' | 'amber' | 'red';
 
+// Bewertet Wind/Wassertemperatur für farbigen Status
 function getPillStatus(value: number, type: 'wind' | 'water'): PillStatus {
     if (type === 'wind') {
         if (value <= 15) return 'green';
@@ -74,20 +68,28 @@ function pillIcon(status: PillStatus): keyof typeof Ionicons.glyphMap {
     return 'close-circle-outline';
 }
 
-// ─── Haupt-Komponente ─────────────────────────────────────────────────────────
+// Wetterseite für den ausgewählten See
 
 export default function WetterScreen() {
     const router = useRouter();
+    // Holt lakeId aus URL, z.B. /wetter?lakeId=attersee
     const { lakeId } = useLocalSearchParams<{ lakeId: string }>();
+    // Speichert den aktuell ausgewählten See aus Firebase
+    const [lake, setLake] = useState<Lake | null>(null);
+    // Zeigt an, ob See aus Firebase geladen wird
+    const [lakeLoading, setLakeLoading] = useState(true);
 
-    const lake: Lake | undefined = LAKES.find((l) => l.id === lakeId);
-
+    // Speichert geladene Wetterdaten
     const [weather, setWeather]   = useState<WeatherData | null>(null);
+    // Zeigt, ob Wetterdaten geladen
     const [loading, setLoading]   = useState(true);
+    // Wird true, wenn Wetterdaten nicht geladen werden
     const [offline, setOffline]   = useState(false);
 
+    // Lädt Wetterdaten von Open-Meteo API
     const loadWeather = async () => {
-        if (!lake) return;
+        if (!lake) return; //Kein See gefunden
+        // Startet Ladezustand & setzt vorherige Fehler zurück
         setLoading(true);
         setOffline(false);
 
@@ -95,20 +97,24 @@ export default function WetterScreen() {
             // Wetterdaten für die exakten See-Koordinaten laden
             const forecastUrl =
                 `https://api.open-meteo.com/v1/forecast` +
-                `?latitude=${lake.lat}&longitude=${lake.lng}` +
+                `?latitude=${lake.lat}&longitude=${lake.lng}`+
                 `&hourly=temperature_2m,wind_speed_10m` +
                 `&wind_speed_unit=kmh` +
                 `&timezone=auto` +
                 `&forecast_days=1`;
 
+            // Sendet Anfrage an die Open-Meteo API
             const res = await fetch(forecastUrl);
             if (!res.ok) throw new Error('API-Fehler');
+            // Liest Antwort der API als JSON-Daten aus
             const forecast = await res.json();
 
+            // Holt die Listen für Uhrzeiten, Lufttemperaturen & Windgeschwindigkeiten
             const times    = forecast.hourly.time as string[];
             const airTemps = forecast.hourly.temperature_2m as number[];
             const winds    = forecast.hourly.wind_speed_10m as number[];
 
+            // Holt Werte für aktuelle Stunde
             const currentHour = new Date().getHours();
             const airTemp     = getValueAtHour(times, airTemps, currentHour);
             const windSpeed   = getValueAtHour(times, winds,    currentHour);
@@ -120,27 +126,78 @@ export default function WetterScreen() {
             const dayEntries: DayEntry[] = [8, 11, 14, 17].map((hour) => {
                 const temp = getValueAtHour(times, airTemps, hour);
                 const wind = getValueAtHour(times, winds,    hour);
-                const { rating, ratingColor } = getDivingRating(temp, wind);
                 return {
                     time: `${String(hour).padStart(2, '0')}:00`,
                     icon: getWeatherIcon(wind, temp),
                     condition: `${temp}°C · Wind ${wind} km/h`,
-                    rating,
-                    ratingColor,
                 };
             });
 
+            // Speichert alle Werte, damit sie angezeigt werden können
             setWeather({ airTemp, waterTemp, windSpeed, maxDepth: lake.maxDepth, dayEntries });
         } catch {
+            // Wenn etwas schiefgeht->Offline-Zustand
             setOffline(true);
         } finally {
+            // Beendet Ladezustand ->egal ob erfolgreich oder fehlerhaft
             setLoading(false);
         }
     };
+    // Lädt ausgewählten See aus Firebase, sobald sich lakeId ändert
+    useEffect(() => {
+        // Setzt den Ladezustand & entfernt alte Wetterdaten
+        setLakeLoading(true);
+        setWeather(null);
+        setOffline(false);
 
-    useEffect(() => { loadWeather(); }, [lakeId]);
+        const loadLakeFromFirebase = async () => {
+            if (!lakeId) return;
 
-    // ─── See nicht gefunden ──────────────────────────────────────────────────
+            // Holt "lakes"-Dokument aus Firebase
+            const lakeDocument = await getDoc(doc(db, 'lakes', lakeId));
+            const data = lakeDocument.data();
+
+            // Falls See nicht existiert -> kein See gesetzt
+            if (!lakeDocument.exists() || !data) {
+                setLake(null);
+                setLakeLoading(false);
+                return;
+            }
+
+            // Wandelt Firebase-Daten in Lake-Objekt um
+            setLake({
+                id: lakeDocument.id,
+                name: String(data.name ?? ''),
+                lat: Number(data.lat ?? 0),
+                lng: Number(data.lng ?? 0),
+                maxDepth: Number(data.maxDepth ?? 0),
+                monthlyTemps: data.monthlyTemps ?? {},
+            });
+
+            // See -> fertig geladen
+            setLakeLoading(false);
+        };
+
+        loadLakeFromFirebase();
+    }, [lakeId]);
+
+    // Sobald See geladen wurde, werden Wetterdaten abgefragt
+    useEffect(() => {
+        if (lake) {
+            loadWeather();
+        }
+    }, [lake]);
+
+    // See aus Firebase geladen -> erscheint ein Ladeindikator
+    if (lakeLoading) {
+        return (
+            <View style={styles.safeArea}>
+                <ActivityIndicator size="large" color="#185FA5" />
+            </View>
+        );
+    }
+
+    // See nicht gefunden ->Fehlermeldung
     if (!lake) {
         return (
             <View style={styles.safeArea}>
@@ -153,8 +210,7 @@ export default function WetterScreen() {
             </View>
         );
     }
-
-    // ─── Ladezustand ────────────────────────────────────────────────────────
+    //Ladeanzeige: Weterdaten werden geladen
     if (loading) {
         return (
             <View style={styles.safeArea}>
@@ -167,17 +223,18 @@ export default function WetterScreen() {
                         <View style={{ width: 22 }} />
                     </View>
                 </View>
+
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                     <ActivityIndicator size="large" color="#185FA5" />
                     <Text style={{ marginTop: 12, color: '#888', fontSize: 14 }}>
-                        Wetterdaten werden geladen …
+                        Wetterdaten werden geladen ...
                     </Text>
                 </View>
             </View>
         );
     }
 
-    // ─── Offline ─────────────────────────────────────────────────────────────
+    // Keine Wetterdaten geladen ->  Fehler
     if (offline || !weather) {
         return (
             <View style={styles.safeArea}>
@@ -196,6 +253,7 @@ export default function WetterScreen() {
                             Wetterdaten konnten nicht geladen werden. Bitte prüfe deine Internetverbindung.
                         </Text>
 
+                        {/* Button, um die Wetterdaten erneut zu laden */}
                         <TouchableOpacity
                             onPress={loadWeather}
                             style={{ marginTop: 12, backgroundColor: '#185FA5', borderRadius: 10, padding: 12, alignItems: 'center' }}
@@ -208,17 +266,19 @@ export default function WetterScreen() {
         );
     }
 
-    // ─── Pills ───────────────────────────────────────────────────────────────
+    // Pills
+    // Bewertet Wind & Wassertemperatur für farbige Statusanzeige
     const windStatus  = getPillStatus(weather.windSpeed, 'wind');
     const waterStatus = getPillStatus(weather.waterTemp, 'water');
+    // Holt passende Farben & Textstyles für Statusanzeige
     const windPill    = pillStyle(windStatus);
     const waterPill   = pillStyle(waterStatus);
 
-    // ─── UI ──────────────────────────────────────────────────────────────────
+    // Anzeige Wetterseite
     return (
         <View style={styles.safeArea}>
 
-            {/* HEADER */}
+            {/* Kopfbereich mit Zurück-Button, See-Name und Aktualisieren-Button */}
             <View style={styles.header}>
                 <View style={styles.headerTop}>
                     <TouchableOpacity style={styles.backButton} onPress={() => router.push('./tauchplatz')}>
@@ -233,7 +293,7 @@ export default function WetterScreen() {
 
             <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>
 
-                {/* WETTER-GRID */}
+                {/* Anzeige aktuelle Bedingungen: Lufttemperatur, Wasser, Wind & max. Tiefe */}
                 <View style={styles.section}>
                     <Text style={styles.sectionLabel}>Aktuelle Bedingungen</Text>
                     <View style={styles.weatherGrid}>
@@ -264,7 +324,7 @@ export default function WetterScreen() {
                     </View>
                 </View>
 
-                {/* TAUGLICHKEIT */}
+                {/* Farbliche Bewertung der Tauchbedingungen */}
                 <View style={styles.section}>
                     <Text style={styles.sectionLabel}>Tauglichkeit</Text>
                     <View style={styles.conditionsRow}>
@@ -283,7 +343,7 @@ export default function WetterScreen() {
                     </View>
                 </View>
 
-                {/* TAGESÜBERSICHT */}
+                {/* Tagesübersicht für mehrere Uhrzeiten */}
                 <View style={styles.section}>
                     <Text style={styles.sectionLabel}>Tagesübersicht</Text>
                     {weather.dayEntries.map((entry) => (
